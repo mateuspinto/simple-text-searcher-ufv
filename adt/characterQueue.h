@@ -10,5 +10,6 @@ typedef struct characterQueue {
 
 int characterQueue_startQueue(characterQueue ** node);
 int characterQueue_createNode(characterQueue **node, char character);
-int characterQueue_queue(characterQueue **node, char *character);
+int characterQueue_queue(characterQueue **node, char character);
+char characterQueue_unqueue(characterQueue **node);
 int characterQueue_clean(characterQueue **node);

@@ -25,9 +25,9 @@ int characterQueue_createNode(characterQueue **node, char character){
     return 1;
 }
 
-int characterQueue_queue(characterQueue **node, char *character){
+int characterQueue_queue(characterQueue **node, char character){
     if ((**node).next == NULL){
-        return characterQueue_createNode(&((**node).next), *character);
+        return characterQueue_createNode(&((**node).next), character);
     }
 
     characterQueue_queue(&((**node).next), character);

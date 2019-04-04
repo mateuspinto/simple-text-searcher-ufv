@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "tst.h"
+#include "characterQueue.h"
 
 int tst_node_createNode(tst_node ** node, char character, short endWord){
     *node = malloc(sizeof(tst_node));
@@ -94,17 +95,28 @@ int tst_node_searchtWord(tst_node ** node, char * character){
     return 0;
 }
 
-int tst_node_goThrough(tst_node ** node){
+
+char tst_node_goThrough(tst_node ** node, characterQueue ** queue){
 
     if((**node).left != NULL)
-        tst_node_goThrough(&((**node).left));
+        tst_node_goThrough(&((**node).left), queue);
+        //characterQueue_clean(queue);
 
+    //characterQueue_queue(queue, ((**node).character));
     printf("%c", ((**node).character));
-    if((**node).endWord == 1) printf("\n");
+
+    if((**node).endWord == 1){
+            printf("\n");
+
+    }
+
+
 
     if((**node).center != NULL)
-        tst_node_goThrough(&((**node).center));
+        tst_node_goThrough(&((**node).center), queue);
 
     if((**node).right != NULL)
-        tst_node_goThrough(&((**node).right));
+        tst_node_goThrough(&((**node).right), queue);
+
+    return ((**node).character);
 }
