@@ -9,7 +9,7 @@ WARN=-Wall
 
 CCFLAGS=$(WARN)
 
-SRC= main.c  adt/characterBuffer.c adt/tst.c
+SRC= main.c adt/tst.c
 
 all:
 	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm

@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 #include "tst.h"
-#include "characterBuffer.h"
+
+#define MAXCHAR 45
 
 int tst_node_createNode(tst_node ** node, char character, short endWord){
     *node = malloc(sizeof(tst_node));
@@ -94,24 +95,44 @@ int tst_node_insertWord(tst_node ** node, char * character){
             return 1;
     return 0;
 }
-
+    return 0;
 }
 
 int tst_node_searchtWord(tst_node ** node, char * character){
 
     if ((**node).character == * character){
         if ((**node).endWord == 1) {
+
+            #ifdef DEBUG
+                printf("DEBUG == TST -- PROCURANDO PALAVRA -- PALAVRA ENCONTRADA %c\n", *character);
+            #endif
+
             return 1;
         }
 
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA ENCONTRADA, DESCENDO %c\n", *character);
+        #endif
+
         return tst_node_searchtWord(&((**node).center), ++character);
+
     }
 
     if ((**node).character < * character && (**node).right != NULL){
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MAIOR, INDO PARA A DIREITA %c\n", *character);
+        #endif
+
         return tst_node_searchtWord(&((**node).right), character);
     }
 
     if ((**node).character > * character && (**node).left != NULL){
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MENOR, INDO PARA A ESQUERDA %c\n", *character);
+        #endif
+
         return tst_node_searchtWord(&((**node).left), character);
     }
 
@@ -119,52 +140,76 @@ int tst_node_searchtWord(tst_node ** node, char * character){
     return 0;
 }
 
+tst_node ** tst_node_searchtRadical(tst_node ** node, char * character){
 
-int tst_node_auxgoThrough(tst_node ** node, characterBuffer ** buffer){
+    if (*character == '\0'){
 
-    characterBuffer * aux = NULL;
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO RADICAL -- FIM DO RADICAL EM %p\n", node);
+        #endif
 
-    if((**node).left != NULL)
-        tst_node_auxgoThrough(&((**node).left), buffer);
+        return node;
+    }
+
+    if ((**node).character == * character){
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA ENCONTRADA, INDO PARA BAIXO %c\n", *character);
+        #endif
+
+        return tst_node_searchtRadical(&((**node).center), ++character);
+    }
+
+    if ((**node).character < * character && (**node).right != NULL){
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA MAIOR, INDO PARA DIREITA %c\n", *character);
+        #endif
+
+        return tst_node_searchtRadical(&((**node).right), character);
+    }
+
+    if ((**node).character > * character && (**node).left != NULL){
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA MENOR, INDO PARA DIREITA %c\n", *character);
+        #endif
 
 
-    if((**node).endWord == 1){
-        characterBuffer_buff(buffer, (**node).character);
-            if((**node).center == NULL){
-                while(characterBuffer_notEmpty(buffer))
-                    printf("%c", characterBuffer_unbuff(buffer));
-                    printf("\n");
-                    characterBuffer_unbuff(buffer);
-
-            } else {
-
-                aux = *buffer;
-                while(characterBuffer_notEmpty(&aux)){
-                    //printf("CAIU AQUI -- \n");
-                    printf("%c", characterBuffer_returnCharacter(&aux));
-                    aux = aux->next;
-                }
-                printf("\n");
-            }
-
+        return tst_node_searchtRadical(&((**node).left), character);
     }
 
 
-
-    if((**node).center != NULL){
-        characterBuffer_buff(buffer, (**node).character);
-        tst_node_auxgoThrough(&((**node).center), buffer);
-    }
-
-    if((**node).right != NULL)
-        tst_node_auxgoThrough(&((**node).right), buffer);
-
-    return 1;
+    return 0;
 }
 
-int tst_node_goThrough(tst_node ** node){
-    characterBuffer * buffer;
 
-    characterBuffer_startBuffer(&buffer);
-    return tst_node_auxgoThrough(node, &buffer);
+int tst_node_aux_goThrough(tst_node *atual, char * buffer, int h)
+{
+    if (atual != NULL)
+    {
+        tst_node_aux_goThrough(atual->left,buffer,h);
+
+        buffer[h] = atual->character;
+        if (atual->endWord)
+        {
+            buffer[h+1] = ']';
+            buffer[h+2] = '\0';
+            printf("%s\n",buffer);
+        }
+
+        tst_node_aux_goThrough(atual->center,buffer,h + 1);
+
+        tst_node_aux_goThrough(atual->right,buffer,h);
+
+        return 1;
+    }
+
+    return 0;
+}
+
+int tst_node_goThrough(tst_node *raiz)
+{
+    char buffer[MAXCHAR+2] = "[";
+    return tst_node_aux_goThrough(raiz,buffer,1);
 }

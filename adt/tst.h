@@ -1,8 +1,6 @@
 #ifndef TST_H
 #define TST_H
 
-#include "characterBuffer.h"
-
 typedef struct tst_node {
     char character;
     short endWord;
@@ -15,7 +13,8 @@ int tst_node_createNode(tst_node ** node, char character, short endWord);
 int tst_node_setEndWord(tst_node ** node, short endWord);
 int tst_node_insertWord(tst_node ** node, char * character);
 int tst_node_searchtWord(tst_node ** node, char * character);
-int tst_node_auxgoThrough(tst_node ** node, characterBuffer ** buffer);
-int tst_node_goThrough(tst_node ** node);
+tst_node ** tst_node_searchtRadical(tst_node ** node, char * character);
+int tst_node_aux_goThrough(tst_node *atual, char * buffer, int h);
+int tst_node_goThrough(tst_node *raiz);
 
 #endif
