@@ -2,14 +2,14 @@
 TARGET=text_organizer
 
 # compiler
-CC=gcc
+CC=clang
 # warnings
 WARN=-Wall
 
 
 CCFLAGS=$(WARN)
 
-SRC= main.c adt/tst.c
+SRC= main.c adt/tst.c adt/patricia.c
 
 all:
 	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm
