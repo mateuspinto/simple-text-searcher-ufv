@@ -2,14 +2,14 @@
 TARGET=text_organizer
 
 # compiler
-CC=clang
+CC=gcc
 # warnings
 WARN=-Wall
 
 
 CCFLAGS=$(WARN)
 
-SRC= main.c  adt/characterQueue.c adt/tst.c
+SRC= main.c  adt/characterBuffer.c adt/tst.c
 
 all:
 	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm
@@ -17,5 +17,8 @@ all:
 run:
 	./$(TARGET)
 
-clean:
+clear:
 	rm $(TARGET)
+
+debug:
+	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm -DDEBUG
