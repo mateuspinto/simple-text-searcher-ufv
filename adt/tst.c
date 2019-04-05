@@ -8,8 +8,15 @@
 int tst_node_createNode(tst_node ** node, char character, short endWord){
     *node = malloc(sizeof(tst_node));
 
-    if(*node == NULL)
+    if(*node == NULL) {
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- NO NAO CRIADO  - ERRO DE MEMORIA\n");
+        #endif
+
+
         return 0;
+    }
 
     (**node).character = character;
     (**node).endWord = endWord;
@@ -17,11 +24,21 @@ int tst_node_createNode(tst_node ** node, char character, short endWord){
     (**node).right = NULL;
     (**node).left = NULL;
 
+    #ifdef DEBUG
+        printf("DEBUG == TST -%d- NO CRIADO  - %c\n",  (**node).endWord, (**node).character);
+    #endif
+
     return 1;
 }
 
 int tst_node_setEndWord(tst_node ** node, short endWord){
     (**node).endWord = endWord;
+
+    #ifdef DEBUG
+        printf("DEBUG == TST -- ENDWORD SETADO PARA  - %d\n",  (**node).endWord);
+    #endif
+
+
     return 1;
 }
 
@@ -172,7 +189,7 @@ tst_node ** tst_node_searchtRadical(tst_node ** node, char * character){
     if ((**node).character > * character && (**node).left != NULL){
 
         #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA MENOR, INDO PARA DIREITA %c\n", *character);
+            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA MENOR, INDO PARA ESQUERDA %c\n", *character);
         #endif
 
 
