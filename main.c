@@ -2,18 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <dirent.h>
+#include <unistd.h>
+#include <limits.h>
+
 #include "adt/tstNode.h"
 #include "adt/invertedChainedList.h"
-//#include "adt/patricia.h"
+#include "adt/tstFileNode.h"
 
-int main(int argc, char *argv[]){
-    invertedChainedList * mateus;
-    invertedChainedListStartList(&mateus);
-    invertedChainedListInsertNode(&mateus, "Jurandir.txt");
-    invertedChainedListInsertNode(&mateus, "asdas.txt");
-    invertedChainedListInsertNode(&mateus, "aa.txt");
-    invertedChainedListInsertNode(&mateus, "Jurandir.txt");
+int main() {
 
-    invertedChainedListGoThrough(&mateus);
-  return 0;
+    tstFileNode * mateus;
+    tstFileNodeStartTree(&mateus);
+    tstFileNodeInsertInputs(&mateus, "inputs");
+
+    return 1;
 }

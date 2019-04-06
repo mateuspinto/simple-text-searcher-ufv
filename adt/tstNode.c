@@ -5,6 +5,11 @@
 
 #define MAXCHAR 45
 
+int tstNodeStartTree(tstNode ** node){
+    (*node) = NULL;
+    return 1;
+}
+
 int tstNodeCreateNode(tstNode ** node, char character, short endWord){
     *node = malloc(sizeof(tstNode));
 
@@ -225,8 +230,8 @@ int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h)
     return 0;
 }
 
-int tstNodeGoThrough(tstNode *raiz)
+int tstNodeGoThrough(tstNode **raiz)
 {
     char buffer[MAXCHAR+2] = "[";
-    return tstNodeAuxGoThrough(raiz,buffer,1);
+    return tstNodeAuxGoThrough(*raiz,buffer,1);
 }
