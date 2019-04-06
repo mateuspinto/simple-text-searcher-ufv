@@ -9,9 +9,9 @@ typedef struct tstFileNode {
     struct tstFileNode * left;
 } tstFileNode;
 
-#endif
-
 int tstFileNodeStartTree(tstFileNode ** node);
 int tstFileNodeCreateNode(tstFileNode ** node, char character, char * filename);
 int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filename);
 int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname);
+
+#endif
