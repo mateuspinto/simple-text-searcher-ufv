@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "adt/tst.h"
+#include "adt/tstNode.h"
 #include "adt/invertedChainedList.h"
 //#include "adt/patricia.h"
 
