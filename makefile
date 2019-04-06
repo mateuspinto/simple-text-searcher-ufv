@@ -9,7 +9,7 @@ WARN=-Wall
 
 CCFLAGS=$(WARN)
 
-SRC= main.c adt/tst.c adt/patricia.c
+SRC= main.c adt/tst.c adt/invertedChainedList.c
 
 all:
 	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm
