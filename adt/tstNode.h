@@ -9,6 +9,7 @@ typedef struct tstNode {
     struct tstNode * left;
 } tstNode;
 
+
 int tstNodeStartTree(tstNode ** node);
 int tstNodeCreateNode(tstNode ** node, char character, short endWord);
 int tstNodeSetEndWord(tstNode ** node, short endWord);
@@ -17,5 +18,7 @@ int tstNodeSearchtWord(tstNode ** node, char * character);
 tstNode ** tstNodeSearchRadical(tstNode ** node, char * character);
 int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h);
 int tstNodeGoThrough(tstNode **raiz);
+int tstNodeIsNotInTree(tstNode ** node, char * character);
+
 
 #endif

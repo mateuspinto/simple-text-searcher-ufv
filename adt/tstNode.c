@@ -235,3 +235,45 @@ int tstNodeGoThrough(tstNode **raiz)
     char buffer[MAXCHAR+2] = "[";
     return tstNodeAuxGoThrough(*raiz,buffer,1);
 }
+
+int tstNodeIsNotInTree(tstNode ** node, char * character){
+
+    if ((**node).character == * character){
+        if ((**node).endWord == 1) {
+
+            #ifdef DEBUG
+                printf("DEBUG == TST -- PROCURANDO PALAVRA -- PALAVRA ENCONTRADA %c\n", *character);
+            #endif
+
+            return 0;
+        }
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA ENCONTRADA, DESCENDO %c\n", *character);
+        #endif
+
+        return tstNodeIsNotInTree(&((**node).center), ++character);
+
+    }
+
+    if ((**node).character < * character && (**node).right != NULL){
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MAIOR, INDO PARA A DIREITA %c\n", *character);
+        #endif
+
+        return tstNodeIsNotInTree(&((**node).right), character);
+    }
+
+    if ((**node).character > * character && (**node).left != NULL){
+
+        #ifdef DEBUG
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MENOR, INDO PARA A ESQUERDA %c\n", *character);
+        #endif
+
+        return tstNodeIsNotInTree(&((**node).left), character);
+    }
+
+
+    return 1;
+}

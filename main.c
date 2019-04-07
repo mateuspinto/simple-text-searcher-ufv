@@ -9,16 +9,23 @@
 int main() {
 
 
-    tstFileNode * tstFile;
-    tstNode * tst;
+    tstFileNode * tstFileInputs, *tstFileStopWords;
+    tstNode * tstAutoFill, * tstStopWords;
 
-    tstNodeStartTree(&tst);
-    tstFileNodeStartTree(&tstFile);
+    tstNodeStartTree(&tstAutoFill);
+    tstNodeStartTree(&tstStopWords);
+    tstFileNodeStartTree(&tstFileInputs);
+    tstFileNodeStartTree(&tstFileStopWords);
 
-    tstFileNodeInsertInputs(&tstFile, "inputs");
-    generalFunctionsLoadTstFile(&tstFile, &tst);
 
-    tstNodeGoThrough(&tst);
+    tstFileNodeInsertInputs(&tstFileStopWords, "stopwords");
+    tstFileNodeInsertInputs(&tstFileInputs, "inputs_validation");
+
+    generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
+    tstNodeGoThrough(&tstStopWords);
+    generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords);
+
+    tstNodeGoThrough(&tstAutoFill);
 
 
 
