@@ -8,9 +8,20 @@
 
 int main() {
 
-    tstFileNode * mateus;
-    tstFileNodeStartTree(&mateus);
-    tstFileNodeInsertInputs(&mateus, "inputs");
 
-    return 1;
+    tstFileNode * tstFile;
+    tstNode * tst;
+
+    tstNodeStartTree(&tst);
+    tstFileNodeStartTree(&tstFile);
+
+    tstFileNodeInsertInputs(&tstFile, "inputs");
+    generalFunctionsLoadTstFile(&tstFile, &tst);
+
+    tstNodeGoThrough(&tst);
+
+
+
+	return 0;
+
 }
