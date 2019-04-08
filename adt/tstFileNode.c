@@ -6,6 +6,7 @@
 #include <limits.h>
 
 #include "tstFileNode.h"
+#include "../generalFunctions.h"
 
 int tstFileNodeStartTree(tstFileNode ** node){
     (*node) = NULL;
@@ -141,11 +142,41 @@ int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname){
             strcat(filename, "/");
             strcat(filename, lsdir->d_name);
             tstFileNodeInsertFile(node, filename);
-            printf("%s\n", filename);
+            //printf("%s\n", filename);
         }
     }
 
     closedir(dir);
 
     return 1;
+}
+
+int tstFileNodeAuxGoThrough(tstFileNode *atual, char * buffer, int h)
+{
+    if (atual != NULL)
+    {
+        tstFileNodeAuxGoThrough(atual->left,buffer,h);
+
+        buffer[h] = atual->character;
+        if ((atual->file)!=NULL)
+        {
+            buffer[h+1] = ']';
+            buffer[h+2] = '\0';
+            printf("%s\n",buffer);
+        }
+
+        tstFileNodeAuxGoThrough(atual->center,buffer,h + 1);
+
+        tstFileNodeAuxGoThrough(atual->right,buffer,h);
+
+        return 1;
+    }
+
+    return 0;
+}
+
+int tstFileNodeGoThrough(tstFileNode **raiz)
+{
+    char buffer[PATH_MAX+2] = "[";
+    return tstFileNodeAuxGoThrough(*raiz,buffer,1);
 }

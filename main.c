@@ -8,9 +8,27 @@
 
 int main() {
 
-    tstFileNode * mateus;
-    tstFileNodeStartTree(&mateus);
-    tstFileNodeInsertInputs(&mateus, "inputs");
 
-    return 1;
+    tstFileNode * tstFileInputs, *tstFileStopWords;
+    tstNode * tstAutoFill, * tstStopWords;
+
+    tstNodeStartTree(&tstAutoFill);
+    tstNodeStartTree(&tstStopWords);
+    tstFileNodeStartTree(&tstFileInputs);
+    tstFileNodeStartTree(&tstFileStopWords);
+
+
+    tstFileNodeInsertInputs(&tstFileStopWords, "stopwords");
+    tstFileNodeInsertInputs(&tstFileInputs, "inputs_validation");
+
+    generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
+    tstNodeGoThrough(&tstStopWords);
+    generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords);
+
+    tstNodeGoThrough(&tstAutoFill);
+
+
+
+	return 0;
+
 }
