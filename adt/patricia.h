@@ -5,9 +5,12 @@
 #include <sys/time.h>
 #define D 8   /* depende de TipoChave */
 
-typedef unsigned char TipoChave; /* a definir, dependendo da aplicacao */
+typedef struct{
+    char *word;
+    int sizeWord;
+}TipoChave; /* a definir, dependendo da aplicacao */
 typedef unsigned char TipoIndexAmp;
-typedef unsigned char TipoDib;
+typedef unsigned char TipoIndexNum;
 typedef enum {
   Interno, Externo
 } TipoNo;
@@ -17,6 +20,7 @@ typedef struct TipoPatNo {
   union {
     struct {
       TipoIndexAmp Index;
+      TipoIndexNum IndexNum;
       TipoArvore Esq, Dir;
     } NInterno ;
     TipoChave Chave;
