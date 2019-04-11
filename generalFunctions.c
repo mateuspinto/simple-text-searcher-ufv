@@ -10,8 +10,9 @@
 #include "adt/tstNode.h"
 #include "adt/invertedChainedList.h"
 #include "adt/tstFileNode.h"
+#include "adt/patriciaNode.h"
 
-int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill, tstNode ** tstStopWords){
+int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill, tstNode ** tstStopWords, patriciaNode ** patricia){
     char word[45];
     char c;
     int count;
@@ -25,8 +26,9 @@ int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill
             //printf("%s\n", word);
 
             if(tstNodeIsNotInTree(tstStopWords, word)){
-                tstNodeInsertWord(tstAutoFill, word);
-                // Inserir aqui palavra na patricia +_+
+                //printf("****** PALAVRA A SER INSERIDA --%s ARQUIVO --%s\n", word, filename);
+                //tstNodeInsertWord(tstAutoFill, word);
+                patriciaNodeInsertWord(patricia, word, filename);
 
             }
             word[0]='\0';
@@ -47,13 +49,14 @@ int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill
         }
     }
     fclose(fp);
+    return 1;
 }
 
-int generalFunctionsAuxLoadTstFile(tstFileNode *tstFile, char * buffer, int h, tstNode ** tstAutoFill, tstNode ** tstStopWords)
+int generalFunctionsAuxLoadTstFile(tstFileNode *tstFile, char * buffer, int h, tstNode ** tstAutoFill, tstNode ** tstStopWords, patriciaNode ** patricia)
 {
     if (tstFile != NULL)
     {
-        generalFunctionsAuxLoadTstFile(tstFile->left,buffer,h, tstAutoFill, tstStopWords);
+        generalFunctionsAuxLoadTstFile(tstFile->left,buffer,h, tstAutoFill, tstStopWords, patricia);
 
         buffer[h] = tstFile->character;
         if ((tstFile->file)!=NULL)
@@ -61,12 +64,12 @@ int generalFunctionsAuxLoadTstFile(tstFileNode *tstFile, char * buffer, int h, t
 
             buffer[h] = '\0';
             buffer++;
-            generalFunctionsLoadWords(tstFile->file, buffer, tstAutoFill, tstStopWords);
+            generalFunctionsLoadWords(tstFile->file, buffer, tstAutoFill, tstStopWords, patricia);
         }
 
-        generalFunctionsAuxLoadTstFile(tstFile->center,buffer,h + 1, tstAutoFill, tstStopWords);
+        generalFunctionsAuxLoadTstFile(tstFile->center,buffer,h + 1, tstAutoFill, tstStopWords, patricia);
 
-        generalFunctionsAuxLoadTstFile(tstFile->right,buffer,h, tstAutoFill, tstStopWords);
+        generalFunctionsAuxLoadTstFile(tstFile->right,buffer,h, tstAutoFill, tstStopWords, patricia);
 
         return 1;
     }
@@ -74,10 +77,10 @@ int generalFunctionsAuxLoadTstFile(tstFileNode *tstFile, char * buffer, int h, t
     return 0;
 }
 
-int generalFunctionsLoadTstFile(tstFileNode **tstFile, tstNode ** tstAutoFill, tstNode ** tstStopWords)
+int generalFunctionsLoadTstFile(tstFileNode **tstFile, tstNode ** tstAutoFill, tstNode ** tstStopWords, patriciaNode ** patricia)
 {
     char buffer[PATH_MAX];
-    return generalFunctionsAuxLoadTstFile(*tstFile,buffer,1, tstAutoFill, tstStopWords);
+    return generalFunctionsAuxLoadTstFile(*tstFile,buffer,1, tstAutoFill, tstStopWords, patricia);
 }
 
 int generalFunctionsLoadWordsOnlyTST(FILE * fp, char * filename, tstNode ** tstStopWords){
@@ -115,6 +118,7 @@ int generalFunctionsLoadWordsOnlyTST(FILE * fp, char * filename, tstNode ** tstS
         }
     }
     fclose(fp);
+    return 1;
 }
 
 int generalFunctionsAuxLoadTstFileOnlyTST(tstFileNode *tstFile, char * buffer, int h, tstNode ** tstStopWords)

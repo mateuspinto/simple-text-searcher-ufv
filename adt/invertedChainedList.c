@@ -27,11 +27,21 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename){
 
     strcpy((**node).filename, filename);
 
+    #ifdef DEBUG
+        printf("DEBUG == invertedChainedList -- CELULA CRIADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
+    #endif
+
     return 1;
 }
 
 int invertedChainedIncrementOcurrence(invertedChainedList ** node){
     (** node).ocurrences++;
+
+    #ifdef DEBUG
+        printf("DEBUG == invertedChainedList -- CELULA INCREMENTADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
+    #endif
+
+
     return 1;
 }
 
