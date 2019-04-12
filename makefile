@@ -1,5 +1,5 @@
 # change application name here (executable output name)
-TARGET=text_organizer
+TARGET=text_organizer.o
 
 # compiler
 CC=clang
