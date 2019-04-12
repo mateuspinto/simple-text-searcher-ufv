@@ -5,6 +5,9 @@
 # Prerequisites
 *.d
 
+# executavel
+*text_oganizer*
+
 # Object files
 *.o
 *.ko
@@ -450,9 +453,5 @@ MigrationBackup/
 # Arquivos de input a ser ignorados
 inputs_test/
 inputs_validation/
-
-# executavel
-text_oganizer*
-text_oganizer
 
 # End of https://www.gitignore.io/api/c,linux,windows,visualstudio,visualstudiocode
