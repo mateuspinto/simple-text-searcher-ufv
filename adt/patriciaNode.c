@@ -73,8 +73,10 @@ int patriciaNodeWhichIsDifferent(patriciaNode ** node, char * word){
     int position = 0;
 
     while((((**node).node.external.word)[position])==(word[position])){
+        //printf("BIGO %c %c\n", (**node).node.external.word[position], word[position]);
 
         if((((**node).node.external.word)[position])=='\0' && (word[position])=='\0'){
+            //printf("CAIU NO RETURN \n");
             return -1;
         } //Trata palavras iguais
 
@@ -84,6 +86,7 @@ int patriciaNodeWhichIsDifferent(patriciaNode ** node, char * word){
 
         position++;
     }
+
 
     return position;
 }
@@ -98,7 +101,7 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
     patriciaNode * createdNode = NULL;
     patriciaNode * swap = *node;
     char internalNodeChar;
-    printf("Insert between chamado para %s\n", word);
+    //printf("Insert between chamado para %s\n", word);
     if(patriciaNodeIsExternal(node)){
         //printf("NÓ EXTERNO DETECTADO, DESTROÇANDO..\n");
         patriciaNodeCreateExternalNode(&createdNode, word, filename);
@@ -111,7 +114,7 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
             //printf("LETRA INSERIDA MENOR\n");
             return patriciaNodeCreateInternalNode(node, internalNodeChar, position, &createdNode, &swap);
         }
-    } else if(position <= (**node).node.internal.position){ // MENOR OU MENOR E IGUAL??
+    } else if(position < (**node).node.internal.position){ // MENOR OU MENOR E IGUAL??
         patriciaNodeCreateExternalNode(&createdNode, word, filename);
         internalNodeChar =patriciaNodeReturnCharacter(node, position);
         if(word[position]>internalNodeChar){
@@ -129,39 +132,38 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
     return 0;
 }
 
-int patriciaNodeAuxInsertWord (patriciaNode ** node, char * word, patriciaNode ** root, char * filename){
+int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     int differPosition;
+    patriciaNode ** aux = node;
 
     if((*node) == NULL){
         return patriciaNodeCreateExternalNode(node, word, filename);
     }
 
-
-    if(!patriciaNodeIsExternal(node)){
-        if (patriciaNodeCheckBitFlow(node, word)){
+    while(!patriciaNodeIsExternal(aux)){
+        if (patriciaNodeCheckBitFlow(aux, word)){
             //printf("Passaando por nó interno - Foi para a direita // posicao - %d // caractere - %c\n", (**node).node.internal.position, (**node).node.internal.character);
-            return patriciaNodeAuxInsertWord (&((**node).node.internal.right), word, root, filename);
+            aux = &((**aux).node.internal.right);
         } else {
             //printf("Passaando por nó interno - Foi para a esquerda // posicao - %d // caractere - %c\n", (**node).node.internal.position, (**node).node.internal.character);
-            return patriciaNodeAuxInsertWord (&((**node).node.internal.left), word, root, filename);
+            aux = &((**aux).node.internal.left);
         }
     }
 
+    //printf("%s - AA\n", (**node).node.external.word);
 
-    differPosition = patriciaNodeWhichIsDifferent(node, word);
+
+    differPosition = patriciaNodeWhichIsDifferent(aux, word);
 
     if(differPosition == -1){
-        invertedChainedListInsertNode(&((**node).node.external.textList), filename);
+        //invertedChainedListInsertNode(&((**node).node.external.textList), filename);
         return 0;
     }
 
     //printf("O BIT %d É DIFERENTE\n", differPosition);
 
-    return patriciaNodeInsertBetween(root, word, differPosition, filename);
+    return patriciaNodeInsertBetween(node, word, differPosition, filename);
 
-}
-int patriciaNodeInsertWord(patriciaNode ** node, char * word, char * filename){
-    return patriciaNodeAuxInsertWord(node, word, node, filename);
 }
 
 int patriciaNodeGoThrough(patriciaNode ** node){

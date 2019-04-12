@@ -22,24 +22,25 @@ int main() {
 
 
     tstFileNodeInsertInputs(&tstFileStopWords, "stopwords");
-    tstFileNodeInsertInputs(&tstFileInputs, "inputs_validation");
+    tstFileNodeInsertInputs(&tstFileInputs, "inputs_test");
 
     generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords, &patricia);
 
-    tstNodeGoThrough(&tstAutoFill);
+    //tstNodeGoThrough(&tstAutoFill);
+    patriciaNodeGoThrough(&patricia);
 
-    /*
-     patriciaNodeStartTree(&patricia);
-    patriciaNodeInsertWord(&patricia, "another", "teste");
-    patriciaNodeInsertWord(&patricia, "guy", "teste");
-    patriciaNodeInsertWord(&patricia, "of", "teste");
+
+    /*patriciaNodeStartTree(&patricia);
+    patriciaNodeInsertWord(&patricia, "lord", "teste");
+    patriciaNodeInsertWord(&patricia, "blef", "teste");
+    patriciaNodeInsertWord(&patricia, "atum", "teste");
     patriciaNodeInsertWord(&patricia, "yeah", "teste");
     patriciaNodeInsertWord(&patricia, "Acaraje", "teste");
-    patriciaNodeInsertWord(&patricia, "Sapucai", "teste");
+    patriciaNodeInsertWord(&patricia, "a", "teste");
     patriciaNodeInsertWord(&patricia, "", "teste");
-    patriciaNodeGoThrough(&patricia);
-    */
+    patriciaNodeGoThrough(&patricia);*/
+
 
 	return 0;
 
