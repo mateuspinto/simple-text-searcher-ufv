@@ -62,7 +62,7 @@ int generalFunctionsAuxLoadTstFile(tstFileNode *tstFile, char * buffer, int h, t
         if ((tstFile->file)!=NULL)
         {
 
-            buffer[h] = '\0';
+            buffer[h+1] = '\0';
             buffer++;
             generalFunctionsLoadWords(tstFile->file, buffer, tstAutoFill, tstStopWords, patricia);
         }
@@ -79,7 +79,7 @@ int generalFunctionsAuxLoadTstFile(tstFileNode *tstFile, char * buffer, int h, t
 
 int generalFunctionsLoadTstFile(tstFileNode **tstFile, tstNode ** tstAutoFill, tstNode ** tstStopWords, patriciaNode ** patricia)
 {
-    char buffer[PATH_MAX];
+    char buffer[PATH_MAX+1];
     return generalFunctionsAuxLoadTstFile(*tstFile,buffer,1, tstAutoFill, tstStopWords, patricia);
 }
 
@@ -129,7 +129,7 @@ int generalFunctionsAuxLoadTstFileOnlyTST(tstFileNode *tstFile, char * buffer, i
         if ((tstFile->file)!=NULL)
         {
 
-            buffer[h] = '\0';
+            buffer[h+1] = '\0';
             buffer++;
             generalFunctionsLoadWordsOnlyTST(tstFile->file, buffer, tstStopWords);
         }
@@ -146,6 +146,6 @@ int generalFunctionsAuxLoadTstFileOnlyTST(tstFileNode *tstFile, char * buffer, i
 
 int generalFunctionsLoadTstFileOnlyTST(tstFileNode **tstFile, tstNode ** tstStopWords)
 {
-    char buffer[PATH_MAX];
+    char buffer[PATH_MAX+1];
     return generalFunctionsAuxLoadTstFileOnlyTST(*tstFile,buffer,1, tstStopWords);
 }
