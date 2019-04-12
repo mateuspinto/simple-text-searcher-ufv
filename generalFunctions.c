@@ -27,7 +27,7 @@ int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill
 
             if(tstNodeIsNotInTree(tstStopWords, word)){
                 //printf("****** PALAVRA A SER INSERIDA --%s ARQUIVO --%s\n", word, filename);
-                tstNodeInsertWord(tstAutoFill, word);
+                //tstNodeInsertWord(tstAutoFill, word);
                 patriciaNodeInsertWord(patricia, word, filename);
 
             }

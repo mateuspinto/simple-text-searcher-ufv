@@ -233,6 +233,10 @@ int tstNodeGoThrough(tstNode **raiz)
 
 int tstNodeIsNotInTree(tstNode ** node, char * character){
 
+    if((*node) == NULL){
+        return 1;
+    }
+
     if ((**node).character == * character){
         if ((**node).endWord == 1) {
 

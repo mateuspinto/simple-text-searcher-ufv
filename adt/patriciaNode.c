@@ -60,7 +60,7 @@ int patriciaNodeCreateExternalNode (patriciaNode ** node, char * word, char * fi
 
 int patriciaNodeCreateInternalNode (patriciaNode ** node, char character, int position, patriciaNode ** left, patriciaNode ** right){
     (*node) = malloc(sizeof(patriciaNode));
-    
+
     if((*node)==NULL){
         printf("ERRO DE MEMORIA\n");
         return 0;
@@ -140,6 +140,13 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
     return 0;
 }
 
+int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename){
+    if((**node).nodeType == external)
+        return 0;
+
+    return invertedChainedListInsertNode(&((**node).node.external.textList), filename);
+}
+
 int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     int differPosition;
     patriciaNode ** aux = node;
@@ -164,7 +171,7 @@ int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     differPosition = patriciaNodeWhichIsDifferent(aux, word);
 
     if(differPosition == -1){
-        //invertedChainedListInsertNode(&((**node).node.external.textList), filename);
+        patriciaNodeIncrementOcurrence(aux, filename);
         return 0;
     }
 

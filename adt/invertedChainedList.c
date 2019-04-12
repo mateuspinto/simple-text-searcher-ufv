@@ -42,6 +42,8 @@ int invertedChainedIncrementOcurrence(invertedChainedList ** node){
         printf("DEBUG == invertedChainedList -- CELULA INCREMENTADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
     #endif
 
+    printf("CAIU AQUI\n");
+
 
     return 1;
 }

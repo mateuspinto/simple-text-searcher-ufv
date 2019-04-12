@@ -13,6 +13,7 @@ int main() {
     tstFileNode * tstFileInputs, *tstFileStopWords;
     tstNode * tstAutoFill, * tstStopWords;
     patriciaNode * patricia;
+    int a;
 
     tstNodeStartTree(&tstAutoFill);
     tstNodeStartTree(&tstStopWords);
@@ -24,11 +25,12 @@ int main() {
     tstFileNodeInsertInputs(&tstFileStopWords, "stopwords");
     tstFileNodeInsertInputs(&tstFileInputs, "inputs_test");
 
-    generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
+    //generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords, &patricia);
 
     //tstNodeGoThrough(&tstAutoFill);
     patriciaNodeGoThrough(&patricia);
+    tstNodeStartTree(&tstStopWords);
 
 
     /*patriciaNodeStartTree(&patricia);
