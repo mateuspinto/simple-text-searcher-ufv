@@ -26,9 +26,6 @@ int main() {
 
     generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords, &patricia);
-    tstNodeGoThrough(&tstStopWords);
-    tstNodeInsertWord(&tstStopWords, "to");
-    printf("%d\n", tstNodeSearchWord(&tstStopWords, "to"));
 
 	return 0;
 

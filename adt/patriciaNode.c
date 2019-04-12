@@ -49,9 +49,15 @@ int patriciaNodeCreateExternalNode (patriciaNode ** node, char * word, char * fi
 
     (**node).nodeType = external;
     (**node).node.external.word = malloc(wordSize * sizeof(char));
+
+    if((**node).node.external.word == NULL){
+        printf("ERRO DE MEMORIA\n");
+        return 0;
+    }
+
     strcpy((**node).node.external.word, word);
     (**node).node.external.textList = NULL;
-    invertedChainedListInsertNode(&((**node).node.external.textList), filename);
+    invertedChainedListCreateNode(&((**node).node.external.textList), filename);
 
     //printf("NÓ EXTERNO CRIADO -- %s\n", (**node).node.external.word);
 
@@ -172,7 +178,7 @@ int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     differPosition = patriciaNodeWhichIsDifferent(aux, word);
 
     if(differPosition == -1){
-    //    patriciaNodeIncrementOcurrence(aux, filename);
+        patriciaNodeIncrementOcurrence(aux, filename);
         return 0;
     }
 

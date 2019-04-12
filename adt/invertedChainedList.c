@@ -38,7 +38,7 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename){
 }
 
 int invertedChainedIncrementOcurrence(invertedChainedList ** node){
-    (** node).ocurrences++;
+    (**node).ocurrences++;
 
     #ifdef DEBUG
         printf("DEBUG == invertedChainedList -- CELULA INCREMENTADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
