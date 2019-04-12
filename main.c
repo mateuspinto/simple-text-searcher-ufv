@@ -27,6 +27,15 @@ int main() {
     generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords, &patricia);
 
+    /* patriciaNodeInsertWord(&patricia, "love", "bohemian");
+    patriciaNodeInsertWord(&patricia, "love", "bohemian");
+    patriciaNodeInsertWord(&patricia, "love", "bohemian");
+    patriciaNodeInsertWord(&patricia, "love", "bohemian");
+    patriciaNodeInsertWord(&patricia, "love", "bohemian");
+    patriciaNodeInsertWord(&patricia, "lo", "bohemian");
+    patriciaNodeInsertWord(&patricia, "hello", "bohemian"); */
+    patriciaNodeGoThroughWithOcurrences(&patricia);
+
 	return 0;
 
 }

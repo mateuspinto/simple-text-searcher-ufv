@@ -24,8 +24,6 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename){
         return 0;
     }
 
-
-    (**node).next = NULL;
     (**node).ocurrences = 1;
 
     strcpy((**node).filename, filename);
@@ -33,6 +31,8 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename){
     #ifdef DEBUG
         printf("DEBUG == invertedChainedList -- CELULA CRIADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
     #endif
+    
+    (**node).next = NULL;
 
     return 1;
 }
