@@ -14,12 +14,7 @@ int tstNodeCreateNode(tstNode ** node, char character, short endWord){
     *node = malloc(sizeof(tstNode));
 
     if(*node == NULL) {
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -- NO NAO CRIADO  - ERRO DE MEMORIA\n");
-        #endif
-
-
+        printf("ERRO DE MEMORIA\n");
         return 0;
     }
 

@@ -41,6 +41,12 @@ int patriciaNodeCreateExternalNode (patriciaNode ** node, char * word, char * fi
     }
 
     (*node) = malloc(sizeof(patriciaNode));
+
+    if(*node == NULL){
+        printf("ERRO DE MEMORIA\n");
+        return 0;
+    }
+
     (**node).nodeType = external;
     (**node).node.external.word = malloc(wordSize * sizeof(char));
     strcpy((**node).node.external.word, word);
@@ -54,7 +60,9 @@ int patriciaNodeCreateExternalNode (patriciaNode ** node, char * word, char * fi
 
 int patriciaNodeCreateInternalNode (patriciaNode ** node, char character, int position, patriciaNode ** left, patriciaNode ** right){
     (*node) = malloc(sizeof(patriciaNode));
+    
     if((*node)==NULL){
+        printf("ERRO DE MEMORIA\n");
         return 0;
     }
     (**node).nodeType = internal;

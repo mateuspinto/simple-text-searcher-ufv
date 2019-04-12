@@ -18,6 +18,7 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename){
     (*node) = malloc(sizeof(invertedChainedList));
 
     if((*node)==NULL){
+        printf("ERRO DE MEMORIA\n");
         return 0;
     }
 
