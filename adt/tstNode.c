@@ -38,21 +38,19 @@ int tstNodeSetEndWord(tstNode ** node, short endWord){
         printf("DEBUG == TST -- ENDWORD SETADO PARA  - %d\n",  (**node).endWord);
     #endif
 
-
     return 1;
 }
 
 int tstNodeInsertWord(tstNode ** node, char * character){
 
     if(*node == NULL){
-        if(*(character + sizeof(char)) == '\0'){
-            tstNodeCreateNode(node, *character, 1);
+        if(character[1] == '\0'){
 
             #ifdef DEBUG
                 printf("DEBUG == TST -%d- ULTIMO CARACTERE  - %c\n",  (**node).endWord, (**node).character);
             #endif
 
-            return 1;
+            return tstNodeCreateNode(node, *character, 1);
 
         } else {
 
@@ -62,31 +60,27 @@ int tstNodeInsertWord(tstNode ** node, char * character){
             printf("DEBUG == TST -%d- NÓ VAZIO -- CARACTERE  - %c\n",  (**node).endWord, (**node).character);
         #endif
 
-        tstNodeInsertWord(&((**node).center), ++character);
-        return 1;
+        return tstNodeInsertWord(&((**node).center), ++character);
 
         }
     }
 
     if(character[1] == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
-            (**node).endWord = 1;
 
-            #ifdef DEBUG
-                printf("DEBUG == TST -%d - NOVO FIM DE PALAVRA - %c\n", (**node).endWord, (**node).character);
-            #endif
+        #ifdef DEBUG
+            printf("DEBUG == TST -%d - NOVO FIM DE PALAVRA - %c\n", (**node).endWord, (**node).character);
+        #endif
 
-        return 1;
+        return tstNodeSetEndWord(node, 1);;
     }
 
      if((**node).character == *character) {
 
         #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE IGUAL - %c\n", *character);
+            printf("DEBUG == TST -- CARACTERE IGUAL - %c\n", *character);
         #endif
 
-        if (tstNodeInsertWord(&((**node).center), ++character))
-            return 1;
-        return 0;
+        return tstNodeInsertWord(&((**node).center), ++character);
     }
 
     if((**node).character < *character) {
@@ -95,9 +89,7 @@ int tstNodeInsertWord(tstNode ** node, char * character){
             printf("DEBUG == TST --CARACTERE MAIOR - %c\n", *character);
         #endif
 
-        if (tstNodeInsertWord(&((**node).right), character))
-            return 1;
-    return 0;
+        return tstNodeInsertWord(&((**node).right), character);
     }
 
     if((**node).character > *character) {
@@ -106,9 +98,7 @@ int tstNodeInsertWord(tstNode ** node, char * character){
             printf("DEBUG == TST --CARACTERE MENOR %c\n", *character);
         #endif
 
-        if (tstNodeInsertWord(&((**node).left), character))
-            return 1;
-    return 0;
+        return tstNodeInsertWord(&((**node).left), character);
 }
     return 0;
 }
