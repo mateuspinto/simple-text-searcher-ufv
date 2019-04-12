@@ -10,6 +10,8 @@ int invertedChainedListStartList(invertedChainedList **node){
         printf("DEBUG == invertedChainedList -- LISTA ENCADEADA CRIADA\n");
     #endif
 
+    printf("LISTA CRIADA\n");
+
     return 1;
 }
 
@@ -42,8 +44,6 @@ int invertedChainedIncrementOcurrence(invertedChainedList ** node){
         printf("DEBUG == invertedChainedList -- CELULA INCREMENTADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
     #endif
 
-    printf("CAIU AQUI\n");
-
 
     return 1;
 }
@@ -68,6 +68,11 @@ int invertedChainedListGoThrough(invertedChainedList ** node){
         return 1;
     }
 
-    printf("OCORRENCIAS - %d -- Documento - %s\n", (**node).ocurrences, (**node).filename);
+    if(((**node).next)==NULL){
+        printf("(%d/%s)", (**node).ocurrences, (**node).filename);
+        return 1;
+    }
+
+    printf("(%d/%s), ", (**node).ocurrences, (**node).filename);
     return invertedChainedListGoThrough(&((**node).next));
 }

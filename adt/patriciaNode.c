@@ -141,8 +141,9 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
 }
 
 int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename){
-    if((**node).nodeType == external)
+    if((**node).nodeType == internal){ // Problema Aqui
         return 0;
+    }
 
     return invertedChainedListInsertNode(&((**node).node.external.textList), filename);
 }
@@ -171,7 +172,7 @@ int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     differPosition = patriciaNodeWhichIsDifferent(aux, word);
 
     if(differPosition == -1){
-        patriciaNodeIncrementOcurrence(aux, filename);
+    //    patriciaNodeIncrementOcurrence(aux, filename);
         return 0;
     }
 
@@ -189,5 +190,18 @@ int patriciaNodeGoThrough(patriciaNode ** node){
 
     patriciaNodeGoThrough(&((**node).node.internal.left));
     patriciaNodeGoThrough(&((**node).node.internal.right));
+    return 1;
+}
+
+int patriciaNodeGoThroughWithOcurrences(patriciaNode ** node){
+    if((**node).nodeType == external){
+        printf("%s - ", (**node).node.external.word);
+        invertedChainedListGoThrough(&((**node).node.external.textList));
+        printf("\n");
+        return 1;
+    }
+
+    patriciaNodeGoThroughWithOcurrences(&((**node).node.internal.left));
+    patriciaNodeGoThroughWithOcurrences(&((**node).node.internal.right));
     return 1;
 }

@@ -68,15 +68,15 @@ int tstNodeInsertWord(tstNode ** node, char * character){
         }
     }
 
-    if(*(character + sizeof(char)) == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
-        if ((**node).endWord == 0){
-            tstNodeSetEndWord(node, 1);
+    if(character[1] == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
+            printf(" ANTIGO -- %d\n", (**node).endWord);
+            (**node).endWord = 1;
 
             #ifdef DEBUG
                 printf("DEBUG == TST -%d - NOVO FIM DE PALAVRA - %c\n", (**node).endWord, (**node).character);
             #endif
 
-        }
+            printf(" NOVO -- %d\n", (**node).endWord);
         return 1;
     }
 
@@ -115,7 +115,7 @@ int tstNodeInsertWord(tstNode ** node, char * character){
     return 0;
 }
 
-int tstNodeSearchtWord(tstNode ** node, char * character){
+int tstNodeSearchWord(tstNode ** node, char * character){
 
     if ((**node).character == * character){
         if ((**node).endWord == 1) {
@@ -131,7 +131,7 @@ int tstNodeSearchtWord(tstNode ** node, char * character){
             printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA ENCONTRADA, DESCENDO %c\n", *character);
         #endif
 
-        return tstNodeSearchtWord(&((**node).center), ++character);
+        return tstNodeSearchWord(&((**node).center), ++character);
 
     }
 
@@ -141,7 +141,7 @@ int tstNodeSearchtWord(tstNode ** node, char * character){
             printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MAIOR, INDO PARA A DIREITA %c\n", *character);
         #endif
 
-        return tstNodeSearchtWord(&((**node).right), character);
+        return tstNodeSearchWord(&((**node).right), character);
     }
 
     if ((**node).character > * character && (**node).left != NULL){
@@ -150,7 +150,7 @@ int tstNodeSearchtWord(tstNode ** node, char * character){
             printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MENOR, INDO PARA A ESQUERDA %c\n", *character);
         #endif
 
-        return tstNodeSearchtWord(&((**node).left), character);
+        return tstNodeSearchWord(&((**node).left), character);
     }
 
 
@@ -241,14 +241,14 @@ int tstNodeIsNotInTree(tstNode ** node, char * character){
         if ((**node).endWord == 1) {
 
             #ifdef DEBUG
-                printf("DEBUG == TST -- PROCURANDO PALAVRA -- PALAVRA ENCONTRADA %c\n", *character);
+                printf("DEBUG == TST -- PROCURANDO PALAVRA -- PALAVRA ENCONTRADA - %c - %c\n", *character, (**node).character);
             #endif
 
             return 0;
         }
 
         #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA ENCONTRADA, DESCENDO %c\n", *character);
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA ENCONTRADA, DESCENDO - %c - %c -- É O FIM DA PALAVRA? - %d\n", *character, (**node).character, (**node).endWord);
         #endif
 
         return tstNodeIsNotInTree(&((**node).center), ++character);
@@ -258,7 +258,7 @@ int tstNodeIsNotInTree(tstNode ** node, char * character){
     if ((**node).character < * character && (**node).right != NULL){
 
         #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MAIOR, INDO PARA A DIREITA %c\n", *character);
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MAIOR, INDO PARA A DIREITA - %c - %c\n", *character, (**node).character);
         #endif
 
         return tstNodeIsNotInTree(&((**node).right), character);
@@ -267,7 +267,7 @@ int tstNodeIsNotInTree(tstNode ** node, char * character){
     if ((**node).character > * character && (**node).left != NULL){
 
         #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MENOR, INDO PARA A ESQUERDA %c\n", *character);
+            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MENOR, INDO PARA A ESQUERDA - %c - %c\n", *character, (**node).character);
         #endif
 
         return tstNodeIsNotInTree(&((**node).left), character);

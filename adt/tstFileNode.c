@@ -75,7 +75,7 @@ int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filen
      if((**node).character == *character) {
 
         #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE IGUAL - %c\n", *character);
+            printf("DEBUG == TST --CARACTERE IGUAL - %c -%c\n", *character, (**node).character);
         #endif
 
         if (tstFileNodeAuxInsertFile(&((**node).center), ++character, filename))
@@ -86,7 +86,7 @@ int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filen
     if((**node).character < *character) {
 
         #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE MAIOR - %c\n", *character);
+            printf("DEBUG == TST --CARACTERE MAIOR - %c - %c\n", *character, (**node).character);
         #endif
 
         if (tstFileNodeAuxInsertFile(&((**node).right), character, filename))
@@ -97,7 +97,7 @@ int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filen
     if((**node).character > *character) {
 
         #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE MENOR %c\n", *character);
+            printf("DEBUG == TST --CARACTERE MENOR - %c - %c\n", *character, (**node).character);
         #endif
 
         if (tstFileNodeAuxInsertFile(&((**node).left), character, filename))

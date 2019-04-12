@@ -25,10 +25,10 @@ int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill
             word[count] ='\0';
             //printf("%s\n", word);
 
-            if(tstNodeIsNotInTree(tstStopWords, word)){
+            if(!tstNodeIsNotInTree(tstStopWords, word)){
                 //printf("****** PALAVRA A SER INSERIDA --%s ARQUIVO --%s\n", word, filename);
                 //tstNodeInsertWord(tstAutoFill, word);
-                patriciaNodeInsertWord(patricia, word, filename);
+                //patriciaNodeInsertWord(patricia, word, filename);
 
             }
             word[0]='\0';
@@ -94,10 +94,9 @@ int generalFunctionsLoadWordsOnlyTST(FILE * fp, char * filename, tstNode ** tstS
         if((c == ' ' || c == '\n') && count!=0)
         {
             word[count] ='\0';
-            //printf("%s\n", word);
 
+            printf("****** PALAVRA A SER INSERIDA STOPWORD--%s ARQUIVO --%s\n", word, filename);
             tstNodeInsertWord(tstStopWords, word);
-            // Inserir aqui palavra na patricia +_+
 
 
             word[0]='\0';
