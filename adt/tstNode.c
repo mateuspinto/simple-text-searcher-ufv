@@ -69,14 +69,12 @@ int tstNodeInsertWord(tstNode ** node, char * character){
     }
 
     if(character[1] == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
-            printf(" ANTIGO -- %d\n", (**node).endWord);
             (**node).endWord = 1;
 
             #ifdef DEBUG
                 printf("DEBUG == TST -%d - NOVO FIM DE PALAVRA - %c\n", (**node).endWord, (**node).character);
             #endif
 
-            printf(" NOVO -- %d\n", (**node).endWord);
         return 1;
     }
 

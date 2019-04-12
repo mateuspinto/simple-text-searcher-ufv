@@ -98,7 +98,6 @@ int generalFunctionsLoadWordsOnlyTST(FILE * fp, char * filename, tstNode ** tstS
             printf("****** PALAVRA A SER INSERIDA STOPWORD--%s ARQUIVO --%s\n", word, filename);
             tstNodeInsertWord(tstStopWords, word);
 
-
             word[0]='\0';
             count=0;
         }
