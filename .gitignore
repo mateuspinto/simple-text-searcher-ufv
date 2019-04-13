@@ -447,7 +447,6 @@ healthchecksdb
 MigrationBackup/
 
 # Arquivos de input a ser ignorados
-inputs_test/
-inputs_validation/
+inputs/
 
 # End of https://www.gitignore.io/api/c,linux,windows,visualstudio,visualstudiocode
