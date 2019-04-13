@@ -446,7 +446,5 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
-# Arquivos de input a ser ignorados
-inputs/
 
 # End of https://www.gitignore.io/api/c,linux,windows,visualstudio,visualstudiocode
