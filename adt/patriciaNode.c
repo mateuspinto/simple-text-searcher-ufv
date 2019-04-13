@@ -105,12 +105,54 @@ int patriciaNodeWhichIsDifferent(patriciaNode ** node, char * word){
     return position;
 }
 
+int patriciaNodeReturnPosition(patriciaNode ** node){
+    if((**node).nodeType == external)
+        return 0;
+    return ((**node)).node.internal.position;
+}
+
 char patriciaNodeReturnCharacter(patriciaNode ** node, int position){
     if((**node).nodeType == external)
-    return (((**node).node.external.word)[position]);
+        return (((**node).node.external.word)[position]);
     return ((**node)).node.internal.character;
 }
 
+int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, char * filename){
+    patriciaNode * createdNode = NULL;
+    patriciaNode * swap = *node;
+    char internalNodeChar;
+    //printf("Insert between chamado para %s\n", word);
+    if(patriciaNodeIsExternal(node)){
+        //printf("NÓ EXTERNO DETECTADO, DESTROÇANDO..\n");
+        patriciaNodeCreateExternalNode(&createdNode, word, filename);
+        internalNodeChar =patriciaNodeReturnCharacter(node, position);
+        //printf("PALAVRA INSERIDA - (%c) // PALAVRA DO NÓ - (%c)\n", word[position], internalNodeChar);
+        if(word[position]>internalNodeChar){
+            //printf("LETRA INSERIDA MAIOR\n");
+            return patriciaNodeCreateInternalNode(node, word[position], position, &swap, &createdNode);
+        } else {
+            //printf("LETRA INSERIDA MENOR\n");
+            return patriciaNodeCreateInternalNode(node, internalNodeChar, position, &createdNode, &swap);
+        }
+    } else if(position < (**node).node.internal.position || (position == (**node).node.internal.position && word[position]>(**node).node.internal.character)){ // MENOR OU MENOR E IGUAL??
+        patriciaNodeCreateExternalNode(&createdNode, word, filename);
+        internalNodeChar =patriciaNodeReturnCharacter(node, position);
+        if(word[position]>internalNodeChar){
+            return patriciaNodeCreateInternalNode(node, word[position], position, &swap, &createdNode);
+        } else {
+            return patriciaNodeCreateInternalNode(node, internalNodeChar, position, &createdNode, &swap);
+        }
+    }else{
+        if(patriciaNodeCheckBitFlow(node, word)){
+            return patriciaNodeInsertBetween(&((**node).node.internal.right),word, position, filename);
+        } else {
+            return patriciaNodeInsertBetween(&((**node).node.internal.left),word, position, filename);
+        }
+    }
+    return 0;
+}
+
+/*
 int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, char * filename){
     patriciaNode * createdNode = NULL;
     patriciaNode * swap = *node;
@@ -145,6 +187,7 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
     }
     return 0;
 }
+*/
 
 int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename){
     if((**node).nodeType == internal){ // Problema Aqui
@@ -161,7 +204,7 @@ patriciaNode ** patriciaNodeSearchWord(patriciaNode ** node, char * word){
         return NULL;
 
     while(!patriciaNodeIsExternal(aux)){
-        if(patriciaNodeCheckBitFlow(node, word)){
+        if(patriciaNodeCheckBitFlow(aux, word)){
             aux = &((**aux).node.internal.right);
         } else {
             aux = &((**aux).node.internal.left);
@@ -199,8 +242,7 @@ int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     differPosition = patriciaNodeWhichIsDifferent(aux, word);
 
     if(differPosition == -1){
-        patriciaNodeIncrementOcurrence(aux, filename);
-        return 0;
+        return patriciaNodeIncrementOcurrence(aux, filename);
     }
 
     //printf("O BIT %d É DIFERENTE\n", differPosition);
