@@ -36,6 +36,8 @@ int main() {
     patriciaNodeInsertWord(&patricia, "hello", "bohemian"); */
     patriciaNodeGoThroughWithOcurrences(&patricia);
 
+
+
 	return 0;
 
 }

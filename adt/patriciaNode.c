@@ -154,6 +154,27 @@ int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename){
     return invertedChainedListInsertNode(&((**node).node.external.textList), filename);
 }
 
+patriciaNode ** patriciaNodeSearchWord(patriciaNode ** node, char * word){
+    patriciaNode ** aux = node;
+
+    if(*node == NULL)
+        return NULL;
+
+    while(!patriciaNodeIsExternal(aux)){
+        if(patriciaNodeCheckBitFlow(node, word)){
+            aux = &((**aux).node.internal.right);
+        } else {
+            aux = &((**aux).node.internal.left);
+        }
+    }
+
+    if(patriciaNodeWhichIsDifferent(aux, word)==-1)
+        return aux;
+
+    return NULL;
+
+}
+
 int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     int differPosition;
     patriciaNode ** aux = node;
