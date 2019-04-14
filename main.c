@@ -27,8 +27,6 @@ int main() {
 
     patriciaNodeGoThroughWithOcurrences(&patricia);
 
-
-
 	return 0;
 
 }

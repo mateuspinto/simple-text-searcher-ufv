@@ -152,43 +152,6 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
     return 0;
 }
 
-/*
-int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, char * filename){
-    patriciaNode * createdNode = NULL;
-    patriciaNode * swap = *node;
-    char internalNodeChar;
-    //printf("Insert between chamado para %s\n", word);
-    if(patriciaNodeIsExternal(node)){
-        //printf("NÓ EXTERNO DETECTADO, DESTROÇANDO..\n");
-        patriciaNodeCreateExternalNode(&createdNode, word, filename);
-        internalNodeChar =patriciaNodeReturnCharacter(node, position);
-        //printf("PALAVRA INSERIDA - (%c) // PALAVRA DO NÓ - (%c)\n", word[position], internalNodeChar);
-        if(word[position]>internalNodeChar){
-            //printf("LETRA INSERIDA MAIOR\n");
-            return patriciaNodeCreateInternalNode(node, word[position], position, &swap, &createdNode);
-        } else {
-            //printf("LETRA INSERIDA MENOR\n");
-            return patriciaNodeCreateInternalNode(node, internalNodeChar, position, &createdNode, &swap);
-        }
-    } else if(position < (**node).node.internal.position){ // MENOR OU MENOR E IGUAL??
-        patriciaNodeCreateExternalNode(&createdNode, word, filename);
-        internalNodeChar =patriciaNodeReturnCharacter(node, position);
-        if(word[position]>internalNodeChar){
-            return patriciaNodeCreateInternalNode(node, word[position], position, &swap, &createdNode);
-        } else {
-            return patriciaNodeCreateInternalNode(node, internalNodeChar, position, &createdNode, &swap);
-        }
-    }else{
-        if(patriciaNodeCheckBitFlow(node, word)){
-            return patriciaNodeInsertBetween(&((**node).node.internal.right),word, position, filename);
-        } else {
-            return patriciaNodeInsertBetween(&((**node).node.internal.left),word, position, filename);
-        }
-    }
-    return 0;
-}
-*/
-
 int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename){
     if((**node).nodeType == internal){ // Problema Aqui
         return 0;
