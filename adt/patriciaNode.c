@@ -26,6 +26,9 @@ int patriciaNodeCheckBitEquals (patriciaNode **node, char * word){
 
 int patriciaNodeCheckBitFlow (patriciaNode **node, char * word){
     // Usa nó INTERNO
+    if (strlen(word)<(**node).node.internal.position)
+        return 0;
+    
     if(word[(**node).node.internal.position] >= (**node).node.internal.character){
         return 1;
     }
@@ -94,10 +97,6 @@ int patriciaNodeWhichIsDifferent(patriciaNode ** node, char * word){
             return -1;
         } //Trata palavras iguais
 
-        if((((**node).node.external.word)[position])=='\0' || word[position]=='\0'){
-            return position;
-        } //Trata palavras de tamanhos diferentes
-
         position++;
     }
 
@@ -122,33 +121,25 @@ int patriciaNodeInsertBetween(patriciaNode ** node, char * word, int position, c
     patriciaNode * swap = *node;
     char internalNodeChar;
     //printf("Insert between chamado para %s\n", word);
-    if(patriciaNodeIsExternal(node)){
-        //printf("NÓ EXTERNO DETECTADO, DESTROÇANDO..\n");
+
+    if(patriciaNodeIsExternal(node) || position < (**node).node.internal.position || (position == (**node).node.internal.position && word[position]>patriciaNodeReturnCharacter(node, position))){ // MENOR OU MENOR E IGUAL??
+       
         patriciaNodeCreateExternalNode(&createdNode, word, filename);
         internalNodeChar =patriciaNodeReturnCharacter(node, position);
-        //printf("PALAVRA INSERIDA - (%c) // PALAVRA DO NÓ - (%c)\n", word[position], internalNodeChar);
-        if(word[position]>internalNodeChar){
-            //printf("LETRA INSERIDA MAIOR\n");
-            return patriciaNodeCreateInternalNode(node, word[position], position, &swap, &createdNode);
-        } else {
-            //printf("LETRA INSERIDA MENOR\n");
-            return patriciaNodeCreateInternalNode(node, internalNodeChar, position, &createdNode, &swap);
-        }
-    } else if(position < (**node).node.internal.position || (position == (**node).node.internal.position && word[position]>(**node).node.internal.character)){ // MENOR OU MENOR E IGUAL??
-        patriciaNodeCreateExternalNode(&createdNode, word, filename);
-        internalNodeChar =patriciaNodeReturnCharacter(node, position);
+
         if(word[position]>internalNodeChar){
             return patriciaNodeCreateInternalNode(node, word[position], position, &swap, &createdNode);
         } else {
             return patriciaNodeCreateInternalNode(node, internalNodeChar, position, &createdNode, &swap);
-        }
-    }else{
-        if(patriciaNodeCheckBitFlow(node, word)){
-            return patriciaNodeInsertBetween(&((**node).node.internal.right),word, position, filename);
-        } else {
-            return patriciaNodeInsertBetween(&((**node).node.internal.left),word, position, filename);
         }
     }
+
+    if(patriciaNodeCheckBitFlow(node, word)){
+        return patriciaNodeInsertBetween(&((**node).node.internal.right),word, position, filename);
+    } else {
+        return patriciaNodeInsertBetween(&((**node).node.internal.left),word, position, filename);
+    }
+    
     return 0;
 }
 
