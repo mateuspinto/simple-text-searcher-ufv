@@ -25,7 +25,9 @@ int main() {
     generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords, &patricia);
 
+    
     patriciaNodeGoThroughWithOcurrences(&patricia);
+
 
 	return 0;
 
