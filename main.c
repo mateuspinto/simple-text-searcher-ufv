@@ -6,28 +6,23 @@
 #include "adt/invertedChainedList.h"
 #include "adt/tstFileNode.h"
 #include "adt/patriciaNode.h"
+#include "generalFunctions.h"
 
 int main() {
 
-    tstFileNode * tstFileInputs, *tstFileStopWords;
-    tstNode * tstAutoFill, * tstStopWords;
+    tstFileNode * tstFileInputs;
+    tstNode * tstAutoFill;
     patriciaNode * patricia;
 
     tstNodeStartTree(&tstAutoFill);
-    tstNodeStartTree(&tstStopWords);
     patriciaNodeStartTree(&patricia);
     tstFileNodeStartTree(&tstFileInputs);
-    tstFileNodeStartTree(&tstFileStopWords);
 
-    tstFileNodeInsertInputs(&tstFileStopWords, "stopwords");
     tstFileNodeInsertInputs(&tstFileInputs, "inputs");
 
-    generalFunctionsLoadTstFileOnlyTST(&tstFileStopWords, &tstStopWords);
-    generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &tstStopWords, &patricia);
+    generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
 
-    
     patriciaNodeGoThroughWithOcurrences(&patricia);
-
 
 	return 0;
 

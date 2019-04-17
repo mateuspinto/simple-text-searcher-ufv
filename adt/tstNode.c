@@ -105,9 +105,6 @@ int tstNodeInsertWord(tstNode ** node, char * character){
 
 int tstNodeSearchWord(tstNode ** node, char * character){
 
-    if(*node == NULL)
-        return 0;
-
     if ((**node).character == * character){
         if ((**node).endWord == 1) {
 

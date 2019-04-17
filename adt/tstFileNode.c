@@ -60,18 +60,6 @@ int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filen
         }
     }
 
-    /* if(*(character + sizeof(char)) == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
-        if ((**node).endWord == 0){
-            tstNodeSetEndWord(node, 1);
-
-            #ifdef DEBUG
-                printf("DEBUG == TST -%d - NOVO FIM DE PALAVRA - %c\n", (**node).endWord, (**node).character);
-            #endif
-
-        }
-        return 1;
-    } */
-
      if((**node).character == *character) {
 
         #ifdef DEBUG
@@ -111,67 +99,37 @@ int tstFileNodeInsertFile(tstFileNode ** node, char * filename){
     char swap[PATH_MAX];
     char * nameForTree;
 
-    strcpy(swap, filename);
-    strtok(swap, "/");
-    nameForTree = strtok(NULL, "/");
+    // Esse trecho transforma "inputs/A_Kind_Of_Magic.txt" em "A_Kind_Of_Magic.txt" para evitar desperdicio de memoria na TST de arquivos
+    strcpy(swap, filename); 
+    strtok(swap, "/"); // Splita a string na "/"
+    nameForTree = strtok(NULL, "/"); // Pega a segunda parte do split
 
     return tstFileNodeAuxInsertFile(node, nameForTree, filename);
 }
 
 int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname){
-    char cwd[PATH_MAX];
-    char filename[PATH_MAX];
-    DIR *dir;
+    char cwd[PATH_MAX]; //Cria uma string do tamanho maximo do path do sistema
+    char filename[PATH_MAX]; //Igual a anterior
+    DIR *dir; // Ponteiro para pasta
     struct dirent *lsdir;
 
-    getcwd(cwd, sizeof(cwd));
-    strcat(cwd, "/");
-    strcat(cwd, dirname);
+    getcwd(cwd, sizeof(cwd)); // Pega o CURRENT WORKING DIRECTORY Exemplo: mateuspsilva/home
+    strcat(cwd, "/"); // Cocatena uma "/". Exemplo: mateuspsilva/home/
+    strcat(cwd, dirname); // Cocatena o nome da pasta de inputs Exemplo: mateuspsilva/home/inputs
 
-    dir = opendir(cwd);
+    dir = opendir(cwd); // Abre a pasta de inputs
 
-    while ( ( lsdir = readdir(dir) ) != NULL )
+    while ( ( lsdir = readdir(dir) ) != NULL ) // Percorre os arquivos da pasta enquanto existirem
     {
-        if((strcmp(lsdir->d_name, "..")!=0) && strcmp(lsdir->d_name, ".")!=0){
-            strcpy(filename, dirname);
-            strcat(filename, "/");
-            strcat(filename, lsdir->d_name);
-            tstFileNodeInsertFile(node, filename);
-            //printf("%s\n", filename);
+        if((strcmp(lsdir->d_name, "..")!=0) && strcmp(lsdir->d_name, ".")!=0){ // Trata o "." e ".." comuns do path do linux
+            strcpy(filename, dirname); // Copia o nome da pasta de inputs para filename Exemplo: inputs
+            strcat(filename, "/"); // Cocatena uma "/" Exemplo: inputs/
+            strcat(filename, lsdir->d_name); // Cocatena o nome de um arquivo Exemplo: inputs/A_Kind_of_Magic.txt
+            tstFileNodeInsertFile(node, filename); // Insere o arquivo na TST para arquivos
         }
     }
 
-    closedir(dir);
+    closedir(dir); // Fecha o ponteiro para pastas, semelhante ao close() para arquivos
 
     return 1;
-}
-
-int tstFileNodeAuxGoThrough(tstFileNode *atual, char * buffer, int h)
-{
-    if (atual != NULL)
-    {
-        tstFileNodeAuxGoThrough(atual->left,buffer,h);
-
-        buffer[h] = atual->character;
-        if ((atual->file)!=NULL)
-        {
-            buffer[h+1] = ']';
-            buffer[h+2] = '\0';
-            printf("%s\n",buffer);
-        }
-
-        tstFileNodeAuxGoThrough(atual->center,buffer,h + 1);
-
-        tstFileNodeAuxGoThrough(atual->right,buffer,h);
-
-        return 1;
-    }
-
-    return 0;
-}
-
-int tstFileNodeGoThrough(tstFileNode **raiz)
-{
-    char buffer[PATH_MAX+2] = "[";
-    return tstFileNodeAuxGoThrough(*raiz,buffer,1);
 }
