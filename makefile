@@ -2,7 +2,8 @@
 TARGET=text_organizer.o
 
 # compiler
-CC=clang
+CC=gcc
+CCO=clang
 # warnings
 WARN=-Wall
 
@@ -21,4 +22,7 @@ clear:
 	rm $(TARGET)
 
 debug:
-	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm -DDEBUG
+	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm -DDEBUG -O3
+
+clang:
+	$(CCO) -o $(TARGET) $(SRC) $(CCFLAGS) -lm -O3
