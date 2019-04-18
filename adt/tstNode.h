@@ -19,6 +19,7 @@ tstNode ** tstNodeSearchRadical(tstNode ** node, char * character);
 int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h);
 int tstNodeGoThrough(tstNode **raiz);
 int tstNodeIsNotInTree(tstNode ** node, char * character);
-
+int tstNodeDestroy(tstNode ** node);
+tstNode** tstNodeSearch(tstNode **raiz, char *character);
 
 #endif

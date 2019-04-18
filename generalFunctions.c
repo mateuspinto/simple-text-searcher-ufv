@@ -13,10 +13,23 @@
 #include "adt/patriciaNode.h"
 #include "generalFunctions.h"
 
-int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill, patriciaNode ** patricia){
+int generalFunctionsSetNumDifferentsWords(tstNode **arvoreAuxiliar, tstFileNode **tstFile, char *filename, char *word){
+
+    if(tstNodeSearch(arvoreAuxiliar, word)==NULL){
+        tstNodeInsertWord(arvoreAuxiliar, word);
+        (**tstFile).numDifferentsWords++;
+    }
+
+    return 0;
+
+}
+
+int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill, patriciaNode ** patricia, tstFileNode **tstFile){
     char word[45];
     char c;
     int count;
+    tstNode *arvoreAuxiliar;
+    tstNodeStartTree(&arvoreAuxiliar);
 
     count = 0;
     while((c = fgetc(fp)) != EOF)
@@ -26,7 +39,7 @@ int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill
             word[count] ='\0';
             tstNodeInsertWord(tstAutoFill, word);
             patriciaNodeInsertWord(patricia, word, filename);
-            
+            generalFunctionsSetNumDifferentsWords(&arvoreAuxiliar, tstFile, filename, word);
             count=0;
         }
         else
@@ -44,13 +57,16 @@ int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill
         }
     }
 
-    if((c == ' ' || c == '\n') && count!=0)
+    if(count!=0)
         {
             word[count] ='\0';
             tstNodeInsertWord(tstAutoFill, word);
             patriciaNodeInsertWord(patricia, word, filename);
+            generalFunctionsSetNumDifferentsWords(&arvoreAuxiliar, tstFile, filename, word);
         }
+    tstNodeDestroy(&arvoreAuxiliar);    
 
+    printf("%d\n", (**tstFile).numDifferentsWords);
 
     fclose(fp);
     return 1;
@@ -68,7 +84,7 @@ int generalFunctionsAuxLoadTstFile(tstFileNode *tstFile, char * buffer, int h, t
 
             buffer[h+1] = '\0';
             buffer++;
-            generalFunctionsLoadWords(tstFile->file, buffer, tstAutoFill, patricia);
+            generalFunctionsLoadWords(tstFile->file, buffer, tstAutoFill, patricia, &tstFile);
         }
 
         generalFunctionsAuxLoadTstFile(tstFile->center,buffer,h + 1, tstAutoFill, patricia);

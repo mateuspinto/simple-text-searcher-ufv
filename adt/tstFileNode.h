@@ -4,6 +4,7 @@
 typedef struct tstFileNode {
     char character;
     FILE * file;
+    int numDifferentsWords;
     struct tstFileNode * center;
     struct tstFileNode * right;
     struct tstFileNode * left;
@@ -15,6 +16,7 @@ int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filen
 int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname);
 int tstFileNodeAuxGoThrough(tstFileNode *atual, char * buffer, int h);
 int tstFileNodeGoThrough(tstFileNode **raiz);
+tstFileNode** tstFileNodeSearch(tstFileNode **raiz, char *character);
 
 
 #endif

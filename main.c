@@ -14,6 +14,8 @@ int main() {
     tstNode * tstAutoFill;
     patriciaNode * patricia;
 
+    char teste[200];
+
     tstNodeStartTree(&tstAutoFill);
     patriciaNodeStartTree(&patricia);
     tstFileNodeStartTree(&tstFileInputs);
@@ -23,6 +25,12 @@ int main() {
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
 
     patriciaNodeGoThroughWithOcurrences(&patricia);
+
+    scanf("%s",teste);
+
+    tstFileNodeSearch(&tstFileInputs, teste);
+
+    // tstNodeSearch(&tstAutoFill, teste);
 
 	return 0;
 

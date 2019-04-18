@@ -44,6 +44,7 @@ int tstNodeSetEndWord(tstNode ** node, short endWord){
 int tstNodeInsertWord(tstNode ** node, char * character){
 
     if(*node == NULL){
+        
         if(character[1] == '\0'){
 
             #ifdef DEBUG
@@ -63,19 +64,21 @@ int tstNodeInsertWord(tstNode ** node, char * character){
         return tstNodeInsertWord(&((**node).center), ++character);
 
         }
+    }else{
+        // printf("Letra %c %c\n", (**node).character, *character);
     }
 
-    if(character[1] == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
-
+    if(character[0]==(**node).character && character[1] == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
+        
         #ifdef DEBUG
             printf("DEBUG == TST -%d - NOVO FIM DE PALAVRA - %c\n", (**node).endWord, (**node).character);
         #endif
 
-        return tstNodeSetEndWord(node, 1);;
+        return tstNodeSetEndWord(node, 1);
     }
 
      if((**node).character == *character) {
-
+        
         #ifdef DEBUG
             printf("DEBUG == TST -- CARACTERE IGUAL - %c\n", *character);
         #endif
@@ -84,7 +87,7 @@ int tstNodeInsertWord(tstNode ** node, char * character){
     }
 
     if((**node).character < *character) {
-
+       
         #ifdef DEBUG
             printf("DEBUG == TST --CARACTERE MAIOR - %c\n", *character);
         #endif
@@ -93,7 +96,7 @@ int tstNodeInsertWord(tstNode ** node, char * character){
     }
 
     if((**node).character > *character) {
-
+        
         #ifdef DEBUG
             printf("DEBUG == TST --CARACTERE MENOR %c\n", *character);
         #endif
@@ -263,4 +266,39 @@ int tstNodeIsNotInTree(tstNode ** node, char * character){
 
 
     return 1;
+}
+
+int tstNodeDestroy(tstNode ** node){
+    if(*node!=NULL){
+        tstNodeDestroy(&(**node).left);
+        tstNodeDestroy(&(**node).center);
+        tstNodeDestroy(&(**node).right);
+        free(*node);
+    }
+    return 1;
+}
+
+tstNode** tstNodeSearch(tstNode **raiz, char *character){
+    if(*raiz!=NULL && *character!='\0'){
+        // printf("%c\n", (**raiz).character);
+        if((**raiz).character==*character){
+            if((**raiz).endWord==1 && character[1]=='\0'){
+                // printf("Encontrado\n");
+                return raiz; 
+            }else{
+                return tstNodeSearch(&(**raiz).center, ++character);        
+            }
+        }
+        else if((**raiz).character<*character){
+            return tstNodeSearch(&(**raiz).right, character);      
+            
+        }else{
+            return tstNodeSearch(&(**raiz).left, character);        
+             
+        }
+    }
+
+    // printf("Não encontrado\n");
+
+    return NULL;
 }

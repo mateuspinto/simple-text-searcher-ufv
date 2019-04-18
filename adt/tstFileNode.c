@@ -8,6 +8,7 @@
 #include "tstFileNode.h"
 #include "../generalFunctions.h"
 
+
 int tstFileNodeStartTree(tstFileNode ** node){
     (*node) = NULL;
     return 1;
@@ -23,6 +24,7 @@ int tstFileNodeCreateNode(tstFileNode ** node, char character, char * filename){
 
     (**node).character = character;
     (**node).file = fopen(filename, "r");
+    (**node).numDifferentsWords = 0;
     (**node).center = NULL;
     (**node).right = NULL;
     (**node).left = NULL;
@@ -132,4 +134,26 @@ int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname){
     closedir(dir); // Fecha o ponteiro para pastas, semelhante ao close() para arquivos
 
     return 1;
+}
+
+tstFileNode** tstFileNodeSearch(tstFileNode **raiz, char *character){
+    if(*raiz!=NULL && *character!='\0'){
+        printf("%c", (**raiz).character);
+        if((**raiz).character==*character){
+            if((**raiz).file!=NULL && character[1]=='\0'){
+                printf("Encontrado");
+                return raiz; 
+            }else{
+                return tstFileNodeSearch(&(**raiz).center, ++character);        
+            }
+        }else if((**raiz).character<*character){
+            return tstFileNodeSearch(&(**raiz).right, character);        
+        }else{
+            return tstFileNodeSearch(&(**raiz).left, character);        
+        }
+    }
+
+    printf("Não encontrado");
+
+    return NULL;
 }
