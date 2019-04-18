@@ -6,6 +6,7 @@
 #include "adt/invertedChainedList.h"
 #include "adt/tstFileNode.h"
 #include "adt/patriciaNode.h"
+#include "adt/bstNode.h"
 #include "generalFunctions.h"
 
 int main() {
@@ -13,8 +14,6 @@ int main() {
     tstFileNode * tstFileInputs;
     tstNode * tstAutoFill;
     patriciaNode * patricia;
-
-    char teste[200];
 
     tstNodeStartTree(&tstAutoFill);
     patriciaNodeStartTree(&patricia);
@@ -24,13 +23,7 @@ int main() {
 
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
 
-    // patriciaNodeGoThroughWithOcurrences(&patricia);
-
-    // scanf("%s",teste);
-
-    // tstFileNodeSearch(&tstFileInputs, teste);
-
-    // tstNodeSearch(&tstAutoFill, teste);
+    patriciaNodeGoThroughWithOcurrences(&patricia);
 
 	return 0;
 
