@@ -11,19 +11,34 @@
 
 int main() {
 
-    tstFileNode * tstFileInputs;
-    tstNode * tstAutoFill;
-    patriciaNode * patricia;
+    // tstFileNode * tstFileInputs;
+    // tstNode * tstAutoFill;
+    // patriciaNode * patricia;
 
-    tstNodeStartTree(&tstAutoFill);
-    patriciaNodeStartTree(&patricia);
-    tstFileNodeStartTree(&tstFileInputs);
+    // tstNodeStartTree(&tstAutoFill);
+    // patriciaNodeStartTree(&patricia);
+    // tstFileNodeStartTree(&tstFileInputs);
 
-    tstFileNodeInsertInputs(&tstFileInputs, "inputs");
+    // tstFileNodeInsertInputs(&tstFileInputs, "inputs");
 
-    generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
+    // generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
 
-    patriciaNodeGoThroughWithOcurrences(&patricia);
+    // patriciaNodeGoThroughWithOcurrences(&patricia);
+
+    bstNode * bst;
+
+    bstNodeStartTree(&bst);
+    bstNodeInsertFile(&bst, 20, "mateus");
+    bstNodeInsertFile(&bst, 30, "mateus");
+    bstNodeInsertFile(&bst, 40, "mateus");
+    bstNodeInsertFile(&bst, 20, "jorge");
+    bstNodeInsertFile(&bst, 20, "afonso");
+
+    bstNodeInOrder(&bst);
+
+    bstNodeDestroy(&bst);
+
+    bstNodeInOrder(&bst);
 
 	return 0;
 

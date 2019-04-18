@@ -56,3 +56,13 @@ int bstNodeInOrder(bstNode ** node){
 
     return 0;
 }
+
+int bstNodeDestroy(bstNode ** node){
+    if(*node!=NULL){
+        bstNodeDestroy(&(**node).left);
+        bstNodeDestroy(&(**node).right);
+        free((**node).filename);
+        free(*node);
+    }
+    return 0;
+}

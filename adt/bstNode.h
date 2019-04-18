@@ -14,5 +14,6 @@ int bstNodeStartTree(bstNode ** node);
 int bstNodeCreateNode(bstNode ** node, int weight, char * filename);
 int bstNodeInsertFile(bstNode ** node, int weight, char * filename);
 int bstNodeInOrder(bstNode ** node);
+int bstNodeDestroy(bstNode ** node);
 
 #endif
