@@ -24,11 +24,11 @@ int main() {
 
     generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
 
-    patriciaNodeGoThroughWithOcurrences(&patricia);
+    // patriciaNodeGoThroughWithOcurrences(&patricia);
 
-    scanf("%s",teste);
+    // scanf("%s",teste);
 
-    tstFileNodeSearch(&tstFileInputs, teste);
+    // tstFileNodeSearch(&tstFileInputs, teste);
 
     // tstNodeSearch(&tstAutoFill, teste);
 
