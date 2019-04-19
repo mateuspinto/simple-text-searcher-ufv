@@ -169,26 +169,26 @@ int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename){
     return invertedChainedListInsertNode(&((**node).node.external.textList), filename);
 }
 
-patriciaNode ** patriciaNodeSearchWord(patriciaNode ** node, char * word){
-    patriciaNode ** aux = node;
+// patriciaNode ** patriciaNodeSearchWord(patriciaNode ** node, char * word){
+//     patriciaNode ** aux = node;
 
-    if(*node == NULL)
-        return NULL;
+//     if(*node == NULL)
+//         return NULL;
 
-    while(!patriciaNodeIsExternal(aux)){
-        if(patriciaNodeCheckBitFlow(aux, word)){
-            aux = &((**aux).node.internal.right);
-        } else {
-            aux = &((**aux).node.internal.left);
-        }
-    }
+//     while(!patriciaNodeIsExternal(aux)){
+//         if(patriciaNodeCheckBitFlow(aux, word)){
+//             aux = &((**aux).node.internal.right);
+//         } else {
+//             aux = &((**aux).node.internal.left);
+//         }
+//     }
 
-    if(patriciaNodeWhichIsDifferent(aux, word)==-1)
-        return aux;
+//     if(patriciaNodeWhichIsDifferent(aux, word)==-1)
+//         return aux;
 
-    return NULL;
+//     return NULL;
 
-}
+// }
 
 int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     int differPosition;
@@ -245,4 +245,22 @@ int patriciaNodeGoThroughWithOcurrences(patriciaNode ** node){
     patriciaNodeGoThroughWithOcurrences(&((**node).node.internal.left));
     patriciaNodeGoThroughWithOcurrences(&((**node).node.internal.right));
     return 1;
+}
+
+invertedChainedList *patriciaNodeSearchWord(patriciaNode ** node, char *word){
+    if(*node!=NULL){
+        if((**node).nodeType==internal){
+            if((**node).node.internal.character<=word[(**node).node.internal.position]){
+               return patriciaNodeSearchWord(&(**node).node.internal.right, word);
+            }else{
+               return patriciaNodeSearchWord(&(**node).node.internal.left, word);
+            }
+        }else{
+            if(!strcmp((**node).node.external.word, word)){
+                return (**node).node.external.textList;
+            }
+        }
+    }
+
+    return NULL;
 }

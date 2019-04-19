@@ -109,7 +109,7 @@ int tstFileNodeInsertFile(tstFileNode ** node, char * filename){
     return tstFileNodeAuxInsertFile(node, nameForTree, filename);
 }
 
-int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname){
+int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname, int *qtdFiles){
     char cwd[PATH_MAX]; //Cria uma string do tamanho maximo do path do sistema
     char filename[PATH_MAX]; //Igual a anterior
     DIR *dir; // Ponteiro para pasta
@@ -127,7 +127,9 @@ int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname){
             strcpy(filename, dirname); // Copia o nome da pasta de inputs para filename Exemplo: inputs
             strcat(filename, "/"); // Cocatena uma "/" Exemplo: inputs/
             strcat(filename, lsdir->d_name); // Cocatena o nome de um arquivo Exemplo: inputs/A_Kind_of_Magic.txt
+            (*qtdFiles)+=1;
             tstFileNodeInsertFile(node, filename); // Insere o arquivo na TST para arquivos
+            
         }
     }
 
@@ -138,22 +140,28 @@ int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname){
 
 tstFileNode** tstFileNodeSearch(tstFileNode **raiz, char *character){
     if(*raiz!=NULL && *character!='\0'){
-        printf("%c", (**raiz).character);
+        
+        //printf("%c", (**raiz).character);
         if((**raiz).character==*character){
+        
             if((**raiz).file!=NULL && character[1]=='\0'){
-                printf("Encontrado");
+        
+                // printf("Encontrado");
                 return raiz; 
             }else{
+        
                 return tstFileNodeSearch(&(**raiz).center, ++character);        
             }
         }else if((**raiz).character<*character){
+        
             return tstFileNodeSearch(&(**raiz).right, character);        
         }else{
-            return tstFileNodeSearch(&(**raiz).left, character);        
+        
+            return tstFileNodeSearch(&(**raiz).left, character);
         }
     }
 
-    printf("Não encontrado");
+    // printf("Não encontrado");
 
     return NULL;
 }

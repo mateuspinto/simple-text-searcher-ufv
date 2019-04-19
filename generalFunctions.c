@@ -6,11 +6,14 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <limits.h>
+#include <math.h>
 
 #include "adt/tstNode.h"
 #include "adt/invertedChainedList.h"
 #include "adt/tstFileNode.h"
 #include "adt/patriciaNode.h"
+#include "adt/listaPesquisa.h"
+#include "adt/bstNode.h"
 #include "generalFunctions.h"
 
 int generalFunctionsSetNumDifferentsWords(tstNode **arvoreAuxiliar, tstFileNode **tstFile, char *filename, char *word){
@@ -66,7 +69,7 @@ int generalFunctionsLoadWords(FILE * fp, char * filename, tstNode ** tstAutoFill
         }
     tstNodeDestroy(&arvoreAuxiliar);    
 
-    printf("%d\n", (**tstFile).numDifferentsWords);
+    // printf("%d\n", (**tstFile).numDifferentsWords);
 
     fclose(fp);
     return 1;
@@ -102,3 +105,70 @@ int generalFunctionsLoadTstFile(tstFileNode **tstFile, tstNode ** tstAutoFill, p
     char buffer[PATH_MAX+1];
     return generalFunctionsAuxLoadTstFile(*tstFile,buffer,1, tstAutoFill, patricia);
 }
+
+//Funcção de pesquisa:
+
+int generalFunctionsSearch(tstFileNode **tstFile, patriciaNode ** patricia, char *words, int qtdFiles){
+    char *word = strtok(words," ");
+    int x=0;
+    listaPesquisa *listaPesquisaTemp=NULL;
+    bstNode *bstPesquisa;
+    bstNodeStartTree(&bstPesquisa);
+
+    //Reparte a String pelos seus espaço e pesquisa palavra por palavra atribuindo os arquivos que ela aparece em uma lista encadeada tempoária
+    while(word){
+        invertedChainedList *listTemp=patriciaNodeSearchWord(patricia, word);
+        int qtdFilesAsWord=0;
+        //Função recursiva auxiliar para descobrir e atribuir o nome dos arquivos e os seus respectivos pesos na lista encadeada
+        generalFunctionsSearchWordAux(tstFile, &listTemp, &listaPesquisaTemp, qtdFiles, &qtdFilesAsWord);
+        // puts(word);
+        word = strtok(NULL, " ");
+        x++;
+    }
+
+
+    // listaPesquisaShow(&listaPesquisaTemp);
+
+    //Verifica se a pesquisa retornou resultados
+    if(listaPesquisaTemp!=NULL){
+
+        //Carrega a lista na BST com obejtivo de ordenar os resultados em relação ao seu peso
+        generalFunctionsLoadListInBST(&listaPesquisaTemp, &bstPesquisa);
+
+        //Mostra os resultados da pesquisa em ordem de peso do maior para o menor
+        bstNodeInOrder(&bstPesquisa);
+
+    }else{
+        printf("Sua pesquisa não retornou nenhum resultado :(\n");
+    }
+    return 0;
+}
+
+//Essa função navega até o fim da lista encadeada invertida e só no seu retorno faz os calculos dos pesos, ou seja, ela funciona do final para o inicio da lista
+int generalFunctionsSearchWordAux(tstFileNode **tstFile, invertedChainedList **listFiles, listaPesquisa **listaTemp, int qtdFiles, int *qtdFilesAsWord){
+    if(*listFiles!=NULL){
+        (*qtdFilesAsWord)+=1;
+        int ocurrences=(**listFiles).ocurrences;
+        int numDifferentsWords=(**tstFileNodeSearch(tstFile, (**listFiles).filename)).numDifferentsWords;
+        char *filename=(**listFiles).filename;
+        double weight=2.0;
+        generalFunctionsSearchWordAux(tstFile, &(**listFiles).next, listaTemp, qtdFiles, qtdFilesAsWord);
+        
+        weight=(1.0/((double)numDifferentsWords))*(double)ocurrences*(log2((double)qtdFiles)/(double)(*qtdFilesAsWord));
+        // printf("%lf %lf %lf %lf %lf\n", weight, ((double)numDifferentsWords), (double)ocurrences, log2((double)qtdFiles), (double)(*qtdFilesAsWord));
+        listaPesquisaInsereItem(listaTemp, weight, filename);
+    }
+
+    return 0;
+}
+
+
+int generalFunctionsLoadListInBST(listaPesquisa **listaPesquisaTemp, bstNode **bstPesquisa){
+    if(*listaPesquisaTemp!=NULL){
+        bstNodeInsertFile(bstPesquisa, (**listaPesquisaTemp).wieght, (**listaPesquisaTemp).filename);
+        generalFunctionsLoadListInBST(&(**listaPesquisaTemp).proximo, bstPesquisa);
+    }
+
+    return 0;
+}
+

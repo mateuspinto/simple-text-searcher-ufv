@@ -37,6 +37,7 @@ int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename);
 int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename);
 int patriciaNodeGoThrough(patriciaNode ** node);
 int patriciaNodeGoThroughWithOcurrences(patriciaNode ** node);
+invertedChainedList *patriciaNodeSearchWord(patriciaNode ** node, char *word);
 
 
 #endif

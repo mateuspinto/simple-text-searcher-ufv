@@ -3,7 +3,7 @@
 
 typedef struct bstNode
 {
-    int weight;
+    double weight;
     char * filename;
     struct bstNode * left;
     struct bstNode * right;
@@ -11,8 +11,8 @@ typedef struct bstNode
 
 
 int bstNodeStartTree(bstNode ** node);
-int bstNodeCreateNode(bstNode ** node, int weight, char * filename);
-int bstNodeInsertFile(bstNode ** node, int weight, char * filename);
+int bstNodeCreateNode(bstNode ** node, double weight, char * filename);
+int bstNodeInsertFile(bstNode ** node, double weight, char * filename);
 int bstNodeInOrder(bstNode ** node);
 int bstNodeDestroy(bstNode ** node);
 

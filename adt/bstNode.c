@@ -8,7 +8,7 @@ int bstNodeStartTree(bstNode ** node){
     return 1;
 }
 
-int bstNodeCreateNode(bstNode ** node, int weight, char * filename){
+int bstNodeCreateNode(bstNode ** node, double weight, char * filename){
     (*node) = malloc(sizeof(bstNode));
 
     if(*node==NULL){
@@ -25,7 +25,7 @@ int bstNodeCreateNode(bstNode ** node, int weight, char * filename){
     return 1;
 }
 
-int bstNodeInsertFile(bstNode ** node, int weight, char * filename){
+int bstNodeInsertFile(bstNode ** node, double weight, char * filename){
 
     if(*node == NULL)
         return bstNodeCreateNode(node, weight, filename);
@@ -51,7 +51,7 @@ int bstNodeInOrder(bstNode ** node){
         return 1;
 
     bstNodeInOrder(&((**node).left));
-    printf("%d - %s\n", (**node).weight, (**node).filename);
+    printf("%lf - %s\n", (**node).weight, (**node).filename);
     bstNodeInOrder(&((**node).right));
 
     return 0;
