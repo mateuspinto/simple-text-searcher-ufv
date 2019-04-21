@@ -219,9 +219,12 @@ int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h, listAutoFill **lis
 }
 
 int tstNodeGoThrough(tstNode **raiz, listAutoFill **list)
-{
-    char buffer[MAXCHAR+2];
-    return tstNodeAuxGoThrough(*raiz,buffer,0, list);
+{   
+    if(raiz!=NULL){
+        char buffer[MAXCHAR+2];
+        return tstNodeAuxGoThrough(*raiz,buffer,0, list);
+    }
+    return 0;
 }
 
 int tstNodeIsNotInTree(tstNode ** node, char * character){

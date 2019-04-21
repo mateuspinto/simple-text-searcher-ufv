@@ -12,5 +12,6 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename);
 int invertedChainedIncrementOcurrence(invertedChainedList ** node);
 int invertedChainedListInsertNode(invertedChainedList ** node, char * filename);
 int invertedChainedListGoThrough(invertedChainedList ** node);
+int invertedChainedListDestroy(invertedChainedList ** node);
 
 #endif

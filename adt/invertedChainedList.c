@@ -76,3 +76,12 @@ int invertedChainedListGoThrough(invertedChainedList ** node){
     printf("(%d/%s), ", (**node).ocurrences, (**node).filename);
     return invertedChainedListGoThrough(&((**node).next));
 }
+
+int invertedChainedListDestroy(invertedChainedList ** node){
+    if(*node!=NULL){
+        invertedChainedListDestroy(&(**node).next);
+        free(*node);
+        (*node)=NULL;
+    }
+    return 0;
+}

@@ -18,6 +18,8 @@ int main() {
     patriciaNode * patricia;
     listAutoFill *listAutoComplete=NULL;
     char *search=malloc(50*sizeof(char));
+    char *searchTemp=malloc(50*sizeof(char));
+    int optionSearch=1;
     char *pasta=malloc(50*sizeof(char));
     int qtdFiles=0;
 
@@ -51,6 +53,10 @@ int main() {
             scanf("%s", pasta);
             setbuf(stdin, NULL);
 
+            tstFileNodeDestroy(&tstFileInputs);
+            tstNodeDestroy(&tstAutoFill);
+            patriciaNodeDestroy(&patricia);
+
             tstFileNodeInsertInputs(&tstFileInputs, pasta, &qtdFiles);
 
             generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
@@ -77,24 +83,32 @@ int main() {
 
             int index;
 
-            printf("Insira os termos da pesquisa: ");
+            while(optionSearch!=0){
+                printf("Insira os termos da pesquisa: ");
+                scanf("%s",searchTemp);
+                setbuf(stdin, NULL);
 
-            scanf("%[^\n]s",search);
-            setbuf(stdin, NULL);
+                generalFunctionsShowRadicalsAutoFill(&tstAutoFill, &listAutoComplete, searchTemp);
 
-            generalFunctionsShowRadicalsAutoFill(&tstAutoFill, &listAutoComplete, search);
+                printf("AutoComplete - Digite o indice da palavra que vc deseja pesquisar: ");
 
-            printf("AutoComplete - Digite o indice da palavra que vc deseja pesquisar: ");
+                scanf("%d",&index);
 
-            scanf("%d",&index);
+                generalFunctionsGetRadical(&listAutoComplete, searchTemp, search, index);
 
-            generalFunctionsGetRadical(&listAutoComplete, search, index);
+                printf("Para inserir mais palavras digite '1', para pesquisar digite '0': ");
+
+                scanf("%d",&optionSearch);
+            }
+
+            optionSearch=1;
+
             // listAutoFillShowItens(&listAutoComplete);
-            // printf("--------------RESULTADO------------\n\n");
+            printf("--------------RESULTADO------------\n\n");
 
-            // generalFunctionsSearch(&tstFileInputs, &patricia, search, qtdFiles);
+            generalFunctionsSearch(&tstFileInputs, &patricia, search, qtdFiles);
 
-            // printf("\n\nSelecione uma nova opção ou digite '1' para retornar ao menu: ");
+            printf("\n\nSelecione uma nova opção ou digite '1' para retornar ao menu: ");
 
             scanf("%d", &option);
             setbuf(stdin, NULL);

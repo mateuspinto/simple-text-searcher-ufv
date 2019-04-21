@@ -264,3 +264,19 @@ invertedChainedList *patriciaNodeSearchWord(patriciaNode ** node, char *word){
 
     return NULL;
 }
+
+int patriciaNodeDestroy(patriciaNode **node){
+
+    if(*node!=NULL){
+        if(patriciaNodeIsExternal(node)){
+            invertedChainedListDestroy(&(**node).node.external.textList);
+        }else{
+            patriciaNodeDestroy(&(**node).node.internal.left);
+            patriciaNodeDestroy(&(**node).node.internal.right);
+        }
+        free(*node);
+        (*node)=NULL;
+    }
+
+    return 0;
+}

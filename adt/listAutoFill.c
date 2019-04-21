@@ -26,7 +26,7 @@ int listAutoFillShowItens(listAutoFill **list, char *word){
 int listAutoFillShowItensAux(listAutoFill **list, int *count, char *word){
 
     if((*list)!=NULL){
-        char temp[10];
+        char temp[100];
         strcpy(temp, word);
         strcat(temp, (**list).word);
         (*count)+=1;

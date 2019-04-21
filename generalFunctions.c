@@ -173,18 +173,25 @@ int generalFunctionsLoadListInBST(listaPesquisa **listaPesquisaTemp, bstNode **b
 }
 
 int generalFunctionsShowRadicalsAutoFill(tstNode **node, listAutoFill **list, char *word){
+    tstNodeSearchRadical(node, word);
+    // printf("teste1\n");
     tstNodeGoThrough(tstNodeSearchRadical(node, word), list);
+    // printf("teste2\n");
     listAutoFillShowItens(list, word);
     return 0;
 }
 
-int generalFunctionsGetRadical(listAutoFill **list, char *word, int index){
+int generalFunctionsGetRadical(listAutoFill **list, char *word, char *string, int index){
     listAutoFill *listTemp=listAutoFillGetItem(list, index);
     if(listTemp!=NULL){
         strcat(word, (*listTemp).word);
     }
     listaAutoFillDestroy(list);
     
-    printf("Result: %s\n", word);
+    strcat(string, word);
+
+    strcat(string, " ");
+
+    printf("Result: %s\n", string);
 }
 

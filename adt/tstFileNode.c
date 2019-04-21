@@ -165,3 +165,15 @@ tstFileNode** tstFileNodeSearch(tstFileNode **raiz, char *character){
 
     return NULL;
 }
+
+int tstFileNodeDestroy(tstFileNode **node){
+    if((*node)!=NULL){
+        tstFileNodeDestroy(&(**node).left);
+        tstFileNodeDestroy(&(**node).center);
+        tstFileNodeDestroy(&(**node).right);
+        free((*node));
+        (*node)=NULL;
+    }
+
+    return 0;
+}
