@@ -1,3 +1,12 @@
+/*
+Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+Professora: Doutora Glaucia Braga e Silva
+Integrantes (Matricula - Nome):
+1278 - Angelo Bernar Tessaro Morelo
+3513 - Leandro Lazaro Araujo Vieira
+3489 - Mateus Pinto da Silva
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -168,27 +177,6 @@ int patriciaNodeIncrementOcurrence(patriciaNode ** node, char * filename){
 
     return invertedChainedListInsertNode(&((**node).node.external.textList), filename);
 }
-
-// patriciaNode ** patriciaNodeSearchWord(patriciaNode ** node, char * word){
-//     patriciaNode ** aux = node;
-
-//     if(*node == NULL)
-//         return NULL;
-
-//     while(!patriciaNodeIsExternal(aux)){
-//         if(patriciaNodeCheckBitFlow(aux, word)){
-//             aux = &((**aux).node.internal.right);
-//         } else {
-//             aux = &((**aux).node.internal.left);
-//         }
-//     }
-
-//     if(patriciaNodeWhichIsDifferent(aux, word)==-1)
-//         return aux;
-
-//     return NULL;
-
-// }
 
 int patriciaNodeInsertWord (patriciaNode ** node, char * word, char * filename){
     int differPosition;

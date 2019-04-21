@@ -1,3 +1,12 @@
+/*
+Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+Professora: Doutora Glaucia Braga e Silva
+Integrantes (Matricula - Nome):
+1278 - Angelo Bernar Tessaro Morelo
+3513 - Leandro Lazaro Araujo Vieira
+3489 - Mateus Pinto da Silva
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,12 +14,6 @@
 
 int invertedChainedListStartList(invertedChainedList **node){
     (*node) = NULL;
-
-    #ifdef DEBUG
-        printf("DEBUG == invertedChainedList -- LISTA ENCADEADA CRIADA\n");
-    #endif
-
-    printf("LISTA CRIADA\n");
 
     return 1;
 }
@@ -27,10 +30,6 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename){
     (**node).ocurrences = 1;
 
     strcpy((**node).filename, filename);
-
-    #ifdef DEBUG
-        printf("DEBUG == invertedChainedList -- CELULA CRIADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
-    #endif
     
     (**node).next = NULL;
 
@@ -39,11 +38,6 @@ int invertedChainedListCreateNode(invertedChainedList ** node, char * filename){
 
 int invertedChainedIncrementOcurrence(invertedChainedList ** node){
     (**node).ocurrences++;
-
-    #ifdef DEBUG
-        printf("DEBUG == invertedChainedList -- CELULA INCREMENTADA -- TEXTO = %s -- OCORRENCIAS = %d\n",(**node).filename, (**node).ocurrences);
-    #endif
-
 
     return 1;
 }
@@ -69,11 +63,11 @@ int invertedChainedListGoThrough(invertedChainedList ** node){
     }
 
     if(((**node).next)==NULL){
-        printf("(%d/%s)", (**node).ocurrences, (**node).filename);
+        printf("<%d/%s>", (**node).ocurrences, (**node).filename);
         return 1;
     }
 
-    printf("(%d/%s), ", (**node).ocurrences, (**node).filename);
+    printf("<%d/%s>, ", (**node).ocurrences, (**node).filename);
     return invertedChainedListGoThrough(&((**node).next));
 }
 

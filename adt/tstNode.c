@@ -1,3 +1,12 @@
+/*
+Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+Professora: Doutora Glaucia Braga e Silva
+Integrantes (Matricula - Nome):
+1278 - Angelo Bernar Tessaro Morelo
+3513 - Leandro Lazaro Araujo Vieira
+3489 - Mateus Pinto da Silva
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -25,19 +34,11 @@ int tstNodeCreateNode(tstNode ** node, char character, short endWord){
     (**node).right = NULL;
     (**node).left = NULL;
 
-    #ifdef DEBUG
-        printf("DEBUG == TST -%d- NO CRIADO  - %c\n",  (**node).endWord, (**node).character);
-    #endif
-
     return 1;
 }
 
 int tstNodeSetEndWord(tstNode ** node, short endWord){
     (**node).endWord = endWord;
-
-    #ifdef DEBUG
-        printf("DEBUG == TST -- ENDWORD SETADO PARA  - %d\n",  (**node).endWord);
-    #endif
 
     return 1;
 }
@@ -48,19 +49,11 @@ int tstNodeInsertWord(tstNode ** node, char * character){
         
         if(character[1] == '\0'){
 
-            #ifdef DEBUG
-                printf("DEBUG == TST -%d- ULTIMO CARACTERE  - %c\n",  (**node).endWord, (**node).character);
-            #endif
-
             return tstNodeCreateNode(node, *character, 1);
 
         } else {
 
         tstNodeCreateNode(node, *character, 0);
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -%d- NÓ VAZIO -- CARACTERE  - %c\n",  (**node).endWord, (**node).character);
-        #endif
 
         return tstNodeInsertWord(&((**node).center), ++character);
 
@@ -70,37 +63,21 @@ int tstNodeInsertWord(tstNode ** node, char * character){
     }
 
     if(character[0]==(**node).character && character[1] == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
-        
-        #ifdef DEBUG
-            printf("DEBUG == TST -%d - NOVO FIM DE PALAVRA - %c\n", (**node).endWord, (**node).character);
-        #endif
 
         return tstNodeSetEndWord(node, 1);
     }
 
      if((**node).character == *character) {
-        
-        #ifdef DEBUG
-            printf("DEBUG == TST -- CARACTERE IGUAL - %c\n", *character);
-        #endif
 
         return tstNodeInsertWord(&((**node).center), ++character);
     }
 
     if((**node).character < *character) {
-       
-        #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE MAIOR - %c\n", *character);
-        #endif
 
         return tstNodeInsertWord(&((**node).right), character);
     }
 
     if((**node).character > *character) {
-        
-        #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE MENOR %c\n", *character);
-        #endif
 
         return tstNodeInsertWord(&((**node).left), character);
 }
@@ -112,16 +89,8 @@ int tstNodeSearchWord(tstNode ** node, char * character){
     if ((**node).character == * character){
         if ((**node).endWord == 1) {
 
-            #ifdef DEBUG
-                printf("DEBUG == TST -- PROCURANDO PALAVRA -- PALAVRA ENCONTRADA %c\n", *character);
-            #endif
-
             return 1;
         }
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA ENCONTRADA, DESCENDO %c\n", *character);
-        #endif
 
         return tstNodeSearchWord(&((**node).center), ++character);
 
@@ -129,18 +98,10 @@ int tstNodeSearchWord(tstNode ** node, char * character){
 
     if ((**node).character < * character && (**node).right != NULL){
 
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MAIOR, INDO PARA A DIREITA %c\n", *character);
-        #endif
-
         return tstNodeSearchWord(&((**node).right), character);
     }
 
     if ((**node).character > * character && (**node).left != NULL){
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MENOR, INDO PARA A ESQUERDA %c\n", *character);
-        #endif
 
         return tstNodeSearchWord(&((**node).left), character);
     }
@@ -153,37 +114,20 @@ tstNode ** tstNodeSearchRadical(tstNode ** node, char * character){
 
     if (*character == '\0'){
 
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO RADICAL -- FIM DO RADICAL EM %p\n", node);
-        #endif
-
         return node;
     }
 
     if ((**node).character == * character){
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA ENCONTRADA, INDO PARA BAIXO %c\n", *character);
-        #endif
 
         return tstNodeSearchRadical(&((**node).center), ++character);
     }
 
     if ((**node).character < * character && (**node).right != NULL){
 
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA MAIOR, INDO PARA DIREITA %c\n", *character);
-        #endif
-
         return tstNodeSearchRadical(&((**node).right), character);
     }
 
     if ((**node).character > * character && (**node).left != NULL){
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO RADICAL -- LETRA MENOR, INDO PARA ESQUERDA %c\n", *character);
-        #endif
-
 
         return tstNodeSearchRadical(&((**node).left), character);
     }
@@ -202,10 +146,8 @@ int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h, listAutoFill **lis
         buffer[h] = atual->character;
         if (atual->endWord)
         {
-            // buffer[h+1] = ']';
             buffer[h+1] = '\0';
             listAutoFillInsereItem(list, buffer);
-            // listAutoFillShowItens(list);
         }
 
         tstNodeAuxGoThrough(atual->center,buffer,h + 1, list);
@@ -236,16 +178,9 @@ int tstNodeIsNotInTree(tstNode ** node, char * character){
     if ((**node).character == * character){
         if ((**node).endWord == 1) {
 
-            #ifdef DEBUG
-                printf("DEBUG == TST -- PROCURANDO PALAVRA -- PALAVRA ENCONTRADA - %c - %c\n", *character, (**node).character);
-            #endif
-
             return 0;
         }
 
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA ENCONTRADA, DESCENDO - %c - %c -- É O FIM DA PALAVRA? - %d\n", *character, (**node).character, (**node).endWord);
-        #endif
 
         return tstNodeIsNotInTree(&((**node).center), ++character);
 
@@ -253,18 +188,10 @@ int tstNodeIsNotInTree(tstNode ** node, char * character){
 
     if ((**node).character < * character && (**node).right != NULL){
 
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MAIOR, INDO PARA A DIREITA - %c - %c\n", *character, (**node).character);
-        #endif
-
         return tstNodeIsNotInTree(&((**node).right), character);
     }
 
     if ((**node).character > * character && (**node).left != NULL){
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -- PROCURANDO PALAVRA -- LETRA MENOR, INDO PARA A ESQUERDA - %c - %c\n", *character, (**node).character);
-        #endif
 
         return tstNodeIsNotInTree(&((**node).left), character);
     }
@@ -285,10 +212,10 @@ int tstNodeDestroy(tstNode ** node){
 
 tstNode** tstNodeSearch(tstNode **raiz, char *character){
     if(*raiz!=NULL && *character!='\0'){
-        // printf("%c\n", (**raiz).character);
+
         if((**raiz).character==*character){
             if((**raiz).endWord==1 && character[1]=='\0'){
-                // printf("Encontrado\n");
+
                 return raiz; 
             }else{
                 return tstNodeSearch(&(**raiz).center, ++character);        
@@ -302,8 +229,6 @@ tstNode** tstNodeSearch(tstNode **raiz, char *character){
              
         }
     }
-
-    // printf("Não encontrado\n");
 
     return NULL;
 }

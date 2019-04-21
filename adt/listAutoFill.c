@@ -1,3 +1,12 @@
+/*
+Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+Professora: Doutora Glaucia Braga e Silva
+Integrantes (Matricula - Nome):
+1278 - Angelo Bernar Tessaro Morelo
+3513 - Leandro Lazaro Araujo Vieira
+3489 - Mateus Pinto da Silva
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,6 +30,7 @@ int listAutoFillShowItens(listAutoFill **list, char *word){
     int *count=malloc(sizeof(int));
     (*count)=0;
     listAutoFillShowItensAux(list, count, word);
+    return 1;
 }
 
 int listAutoFillShowItensAux(listAutoFill **list, int *count, char *word){

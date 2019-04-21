@@ -1,15 +1,24 @@
-# change application name here (executable output name)
+# Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+# Professora: Doutora Glaucia Braga e Silva
+# Integrantes (Matricula - Nome):
+# 1278 - Angelo Bernar Tessaro Morelo
+# 3513 - Leandro Lazaro Araujo Vieira
+# 3489 - Mateus Pinto da Silva
+
+# Nome do executavel
 TARGET=text_organizer.o
 
-# compiler
+# Compiladores
 CC=gcc
 CCO=clang
-# warnings
-WARN=-Wall
 
+# Warnings
+WARN=-Wall
 
 CCFLAGS=$(WARN)
 
+
+# Main e .c dos TADS
 SRC= main.c adt/tstNode.c adt/invertedChainedList.c adt/tstFileNode.c adt/patriciaNode.c adt/listaPesquisa.c adt/bstNode.c adt/listAutoFill.c generalFunctions.c
 
 all:
@@ -20,9 +29,6 @@ run:
 
 clear:
 	rm $(TARGET)
-
-debug:
-	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm -DDEBUG -O3
 
 clang:
 	$(CCO) -o $(TARGET) $(SRC) $(CCFLAGS) -lm -O3

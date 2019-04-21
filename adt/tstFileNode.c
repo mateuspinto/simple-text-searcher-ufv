@@ -1,3 +1,12 @@
+/*
+Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+Professora: Doutora Glaucia Braga e Silva
+Integrantes (Matricula - Nome):
+1278 - Angelo Bernar Tessaro Morelo
+3513 - Leandro Lazaro Araujo Vieira
+3489 - Mateus Pinto da Silva
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,32 +38,22 @@ int tstFileNodeCreateNode(tstFileNode ** node, char character, char * filename){
     (**node).right = NULL;
     (**node).left = NULL;
 
-    #ifdef DEBUG
-        printf("DEBUG == TST -%p- NO CRIADO  - %c\n",  (**node).file, (**node).character);
-    #endif
-
     return 1;
 
 }
 
 int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filename){
     if(*node == NULL){
-        if(*(character + sizeof(char)) == '\0'){
-            tstFileNodeCreateNode(node, *character, filename);
 
-            #ifdef DEBUG
-                printf("DEBUG == TST -%p- ULTIMO CARACTERE  - %c\n",  (**node).file, (**node).character);
-            #endif
+        if(character[1] == '\0'){
+
+            tstFileNodeCreateNode(node, *character, filename);
 
             return 1;
 
         } else {
 
         tstFileNodeCreateNode(node, *character, NULL);
-
-        #ifdef DEBUG
-            printf("DEBUG == TST -%p- NÓ VAZIO -- CARACTERE  - %c\n",  (**node).file, (**node).character);
-        #endif
 
         tstFileNodeAuxInsertFile(&((**node).center), ++character, filename);
         return 1;
@@ -64,34 +63,25 @@ int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filen
 
      if((**node).character == *character) {
 
-        #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE IGUAL - %c -%c\n", *character, (**node).character);
-        #endif
-
         if (tstFileNodeAuxInsertFile(&((**node).center), ++character, filename))
             return 1;
+            
         return 0;
     }
 
     if((**node).character < *character) {
 
-        #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE MAIOR - %c - %c\n", *character, (**node).character);
-        #endif
-
         if (tstFileNodeAuxInsertFile(&((**node).right), character, filename))
             return 1;
+
     return 0;
     }
 
     if((**node).character > *character) {
 
-        #ifdef DEBUG
-            printf("DEBUG == TST --CARACTERE MENOR - %c - %c\n", *character, (**node).character);
-        #endif
-
         if (tstFileNodeAuxInsertFile(&((**node).left), character, filename))
             return 1;
+
     return 0;
 }
     return 0;

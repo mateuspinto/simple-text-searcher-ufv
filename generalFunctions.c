@@ -1,3 +1,12 @@
+/*
+Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+Professora: Doutora Glaucia Braga e Silva
+Integrantes (Matricula - Nome):
+1278 - Angelo Bernar Tessaro Morelo
+3513 - Leandro Lazaro Araujo Vieira
+3489 - Mateus Pinto da Silva
+*/
+
 #include "generalFunctions.h"
 
 #include <stdio.h>
@@ -155,7 +164,7 @@ int generalFunctionsSearchWordAux(tstFileNode **tstFile, invertedChainedList **l
         generalFunctionsSearchWordAux(tstFile, &(**listFiles).next, listaTemp, qtdFiles, qtdFilesAsWord);
         
         weight=(1.0/((double)numDifferentsWords))*(double)ocurrences*(log2((double)qtdFiles)/(double)(*qtdFilesAsWord));
-        // printf("%lf %lf %lf %lf %lf\n", weight, ((double)numDifferentsWords), (double)ocurrences, log2((double)qtdFiles), (double)(*qtdFilesAsWord));
+        
         listaPesquisaInsereItem(listaTemp, weight, filename);
     }
 
@@ -174,9 +183,9 @@ int generalFunctionsLoadListInBST(listaPesquisa **listaPesquisaTemp, bstNode **b
 
 int generalFunctionsShowRadicalsAutoFill(tstNode **node, listAutoFill **list, char *word){
     tstNodeSearchRadical(node, word);
-    // printf("teste1\n");
+
     tstNodeGoThrough(tstNodeSearchRadical(node, word), list);
-    // printf("teste2\n");
+ 
     listAutoFillShowItens(list, word);
     return 0;
 }
@@ -193,5 +202,7 @@ int generalFunctionsGetRadical(listAutoFill **list, char *word, char *string, in
     strcat(string, " ");
 
     printf("Result: %s\n", string);
+
+    return 1;
 }
 
