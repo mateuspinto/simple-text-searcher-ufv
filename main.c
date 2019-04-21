@@ -42,7 +42,7 @@ int main() {
     while(option!=0){
         if(option==1){
             printf("╔═════════════════╗\n");
-            printf("║     GUUGLAG     ║\n");
+            printf("║      GOOGLA     ║\n");
             printf("╚═════════════════╝\n\n");
 
             printf("Para usar o nosso software de pesquisa selecione uma das opções:\n\n");
@@ -57,7 +57,7 @@ int main() {
 
         }else if(option==2){
 
-            printf("Insira o nome das pastas onde os arquivos estao: ");
+            printf("Insira o nome da pasta onde os arquivos estao: ");
 
             scanf("%s", pasta);
             setbuf(stdin, NULL);
@@ -131,36 +131,7 @@ int main() {
         }
     }
 
-    printf("Obrigado por usar o GULAG, quero dizer, GUUGLAG!\n");
-
-    // tstFileNode * tstFileInputs;
-    // tstNode * tstAutoFill;
-    // patriciaNode * patricia;
-    // char *search=malloc(50*sizeof(char));
-    // char *pasta=malloc(50*sizeof(char));
-    // int qtdFiles=0;
-
-    // tstNodeStartTree(&tstAutoFill);
-    // patriciaNodeStartTree(&patricia);
-    // tstFileNodeStartTree(&tstFileInputs);
-
-    // scanf("%[^\n]", pasta);
-    // /* Limpar o buffer */
-    // scanf("%*[^\n]"); scanf("%*c");
-
-    // tstFileNodeInsertInputs(&tstFileInputs, "giromba", &qtdFiles);
-
-    // generalFunctionsLoadTstFile(&tstFileInputs, &tstAutoFill, &patricia);
-
-    // // patriciaNodeGoThroughWithOcurrences(&patricia);
-
-    // printf("Digite qualquer coisa e tecle enter pra pesquisar:\n");
-
-    // scanf("%[^\n]", search);
-    // /* Limpar o buffer */
-    // scanf("%*[^\n]"); scanf("%*c");
-
-    // generalFunctionsSearch(&tstFileInputs, &patricia, search, qtdFiles);
+    printf("Obrigado por usar o GOOGLA! ♥♥♥\n");
 
 	return 0;
 
