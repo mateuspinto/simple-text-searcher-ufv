@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "listAutoFill.h"
 #include "tstNode.h"
 
 #define MAXCHAR 45
@@ -192,23 +193,24 @@ tstNode ** tstNodeSearchRadical(tstNode ** node, char * character){
 }
 
 
-int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h)
+int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h, listAutoFill **list)
 {
     if (atual != NULL)
     {
-        tstNodeAuxGoThrough(atual->left,buffer,h);
+        tstNodeAuxGoThrough(atual->left,buffer,h, list);
 
         buffer[h] = atual->character;
         if (atual->endWord)
         {
-            buffer[h+1] = ']';
-            buffer[h+2] = '\0';
-            printf("%s\n",buffer);
+            // buffer[h+1] = ']';
+            buffer[h+1] = '\0';
+            listAutoFillInsereItem(list, buffer);
+            // listAutoFillShowItens(list);
         }
 
-        tstNodeAuxGoThrough(atual->center,buffer,h + 1);
+        tstNodeAuxGoThrough(atual->center,buffer,h + 1, list);
 
-        tstNodeAuxGoThrough(atual->right,buffer,h);
+        tstNodeAuxGoThrough(atual->right,buffer,h, list);
 
         return 1;
     }
@@ -216,10 +218,10 @@ int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h)
     return 0;
 }
 
-int tstNodeGoThrough(tstNode **raiz)
+int tstNodeGoThrough(tstNode **raiz, listAutoFill **list)
 {
-    char buffer[MAXCHAR+2] = "[";
-    return tstNodeAuxGoThrough(*raiz,buffer,1);
+    char buffer[MAXCHAR+2];
+    return tstNodeAuxGoThrough(*raiz,buffer,0, list);
 }
 
 int tstNodeIsNotInTree(tstNode ** node, char * character){

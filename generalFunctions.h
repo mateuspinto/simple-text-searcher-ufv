@@ -18,5 +18,7 @@ int generalFunctionsLoadTstFile(tstFileNode **tstFile, tstNode ** tstAutoFill, p
 int generalFunctionsSearch(tstFileNode **tstFile, patriciaNode ** patricia, char *words, int qtdFiles);
 int generalFunctionsSearchWordAux(tstFileNode **tstFile, invertedChainedList **listFiles, listaPesquisa **listaTemp, int qtdFiles, int *qtdFilesAsWord);
 int generalFunctionsLoadListInBST(listaPesquisa **listaPesquisaTemp, bstNode **bstPesquisa);
+int generalFunctionsShowRadicalsAutoFill(tstNode **node, listAutoFill **list, char *word);
+int generalFunctionsGetRadical(listAutoFill **list, char *word, int index);
 
 #endif
