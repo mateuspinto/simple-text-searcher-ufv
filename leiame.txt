@@ -1,0 +1,123 @@
+/*
+Trabalho Pratico 1 de Algoritimos E Estruturas de Dadados II - APLICACAO COM ARVORES DIGITAIS
+Professora: Doutora Glaucia Braga e Silva
+Integrantes (Matricula - Nome):
+1278 - Angelo Bernar Tessaro Morelo
+3513 - Leandro Lazaro Araujo Vieira
+3489 - Mateus Pinto da Silva
+*/
+
+Trabalho realizado pelo grupo 1278 - Angelo Bernar Tessaro Morelo, 3513 - Leandro Lazaro Araujo Vieira, 3489 - Mateus Pinto da Silva, sobre a orientação da professora Glaucia Braga e Silva na disciplina de Algoritmos e Estruturas de Dados 2.
+
+OBSERVAÇÕES IMPORTANTES: A integridade de execução só é garantida se executado em Linux. Em relação a compiladores, tanto GCC quanto Clang apresentam bons resultados, embora o Clang tenha se mostrado muito eficiente com otimizadores.
+
+O trabalho consiste em armazenar dados em uma estrutura de dados e subsequentemente criar uma seach engine para recuperar esses dados e localização de uma maneira facilitada.
+Para isso foram criadas três estruturas de dados, uma estrutura de arvore TST, uma Patrícia, e uma BST.
+A árvore TST foi utilizada para facilitar as pesquisas por radicais.
+A Patrícia foi criada para armazenar as palavras com o índice invertido.
+A BST é usada para os resultados das pesquisas ordenadamente.
+Os dados serão palavras contidas em vários arquivos diferentes, e armazenadas usando a técnica de ponderação TF-IDF (Term frequency – Inverse Document Frequency). Mostrando a relevância da palavra em cada um dos documentos.
+
+===> COMO UTILIZAR:
+* Para compilar usando o GCC, abra o terminal na pasta principal do trabalho prático e digite "make" (sem aspas).
+* Para compilar usando o Clang (preferível), digite "make clang" também na pasta principal (sem aspas).
+* Para apagar o arquivo executável, digite "make clear".
+* Para executar depois de compilar, digite "make run". A partir disso, o menu é autoexplicativo.
+
+Sobre os arquivos:
+As funções foram divididas em várias bibliotecas (TADS) relacionadas a cada função necessária:
+
+
+===> bstNode: esse TAD contém a estrutura do tipo bstNode, que será usado como base para as funções relacionadas ao nó da arvore BST:
+* bstNodeStartTree: Faz a arvore BST vazia.
+* bstNodeCreateNode: Cria novo nó
+* bstNodeInsertFile: checa se o nome do arquivo não foi inserido e o insere no lugar certo da BST. 
+* bstNodeInOrder: escreve em tela a arvore BST
+* bstNodeDestroy: apaga toda a arvore BST.
+
+
+===> invertedChainedList: contém a estrutura do tipo usado para a lista de ocorrências das palavras em cada texto “invertedChainedList”, e também as funções usadas para tanto:
+* invertedChainedListStartList:
+* invertedChainedListCreateNode:
+* invertedChainedIncrementOcurrence:
+* invertedChainedListInsertNode:
+* invertedChainedListGoThrough: escreve em tela as ocorrências.
+* invertedChainedListDestroy:
+A nomenclatura das funções é semelhante à nomenclatura anterior.
+
+
+===> listaPesquisa: Possui a estrutura do tipo “listaPesquisa”, e as funções que guardam em uma lista encadeada o nome dos arquivos e os pesos de cada um: 
+* listaPesquisaInsereItem:
+* listaPesquisaDestroy:
+* listaPesquisaShow:
+A nomenclatura das funções é semelhante à nomenclatura anterior.
+
+
+===>listAltoFill: possui o tipo “listAutoFill” e as funções usadas para auxiliar a pesquisa das palavras e seus radicais:
+* listAutoFillInsereItem:
+* listAutoFillShowItens:
+* listAutoFillShowItensAux: Função recursiva para auxiliar “listAutoFillShowItens”. 
+* listAutoFillGetItem: Retorna um item específico da lista.
+* listaAutoFillDestroy:
+
+
+===> patriciaNode: esse arquivo fará uso da biblioteca “invertedChainedList”, e possui os tipos usado para a criação da arvore patricia “patriciaNode”, assim como a enumeração do identificador do tipo de nó “nodeType”. Aqui também são declaradas as funções relacionadas à arvore patrícia:
+* patriciaNodeStartTree:
+* patriciaNodeIsExternal: Confere o tipo de nó.
+* patriciaNodeCheckBitFlow: checa se o caractere do nó interno é maior ou menor que o da posição.
+* patriciaNodeCreateExternalNode:
+* patriciaNodeCreateInternalNode:
+* patriciaNodeWhichIsDifferent: retorna a posição na string que a palavra à ser inserida difere da palavra já inserida.
+* patriciaNodeReturnPosition: retorna a posição de um nó interno.
+* patriciaNodeInsertBetween: faz a verificação e chama as funções de inserção no local certo da árvore.
+* patriciaNodeIncrementOcurrence: em nós externos, chama a função “invertedChainedListInsertNode” para listar o arquivo.
+* patriciaNodeInsertWord: faz a inserção da palavra na árvore. 
+* patriciaNodeGoThrough: mostra as palavras da arvore.
+* patriciaNodeGoThroughWithOcurrences: mostra as palavras e as ocorrências das mesmas nos textos.
+* patriciaNodeSearchWord: retorna uma palavra específica.
+* patriciaNodeDestroy:
+
+
+
+===> tstFileNode: aqui foram feitas as funções de tratamento de arquivo, possuí o tipo nó usado na arvore TST “tstFileNode” assim como as funções usadas nessa arvore:
+* tstFileNodeStartTree:
+* tstFileNodeCreateNode:
+tstFileNodeAuxInsertFile: Função recursiva para auxiliar “tstFileNodeInsertFile”.
+* tstFileNodeInsertFile:
+* tstFileNodeInsertInputs:
+* tstFileNodeSearch:
+* tstFileNodeDestroy:
+
+
+
+===> tstNode: Nesse TAD está o tipo para o nó da arvore TST “tstNode”, assim como são feitas as funções que vão trabalhar diretamente com a árvore: 
+* tstNodeStartTree:
+* tstNodeCreateNode:
+* tstNodeSetEndWord: 
+* tstNodeInsertWord: 
+* tstNodeSearchWord:
+* tstNodeSearchRadical: 
+* tstNodeAuxGoThrough: Função recursiva para auxiliar “tstNodeGoThrough”.
+* tstNodeGoThrough: Mostra toda a arvore TST.
+* tstNodeIsNotInTree:
+* tstNodeDestroy:
+* tstNodeSearch:
+
+
+
+===> generalFunctions: Esse TAD tem as funções gerais da Search Engine, e para isso, ele faz uso de todos os outros TADs já citados.
+* generalFunctionsSetNumDifferentsWords: conta as palavras.
+* generalFunctionsLoadWords: pega os dados dos arquivos e faz a inserção nas várias arvores.
+* generalFunctionsAuxLoadTstFile: Função recursiva para auxiliar “generalFunctionsLoadTstFile”.
+* generalFunctionsLoadTstFile: abre os vários arquivos e chama as funções para inserção.
+* generalFunctionsSearch:
+* generalFunctionsSearchWordAux: Função recursiva para auxiliar “generalFunctionsSearch”.
+* generalFunctionsLoadListInBST: insere dados na BST
+* generalFunctionsShowRadicalsAutoFill: pesquisa com radicais
+* generalFunctionsGetRadical:
+
+===> BIBLIOGRAFIA:
+* O método de abertura de multiplos arquivos foi extremamente inspirado do link https://www.hardware.com.br/comunidade/arquivos-varrer/1103524/
+* Os arquivos de input são a musicografia da banda Queen, e foram retiradas do site https://www.kaggle.com/mousehead/songlyrics
+
+

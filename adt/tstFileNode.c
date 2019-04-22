@@ -131,12 +131,10 @@ int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname, int *qtdFiles){
 tstFileNode** tstFileNodeSearch(tstFileNode **raiz, char *character){
     if(*raiz!=NULL && *character!='\0'){
         
-        //printf("%c", (**raiz).character);
         if((**raiz).character==*character){
         
             if((**raiz).file!=NULL && character[1]=='\0'){
         
-                // printf("Encontrado");
                 return raiz; 
             }else{
         
@@ -150,8 +148,6 @@ tstFileNode** tstFileNodeSearch(tstFileNode **raiz, char *character){
             return tstFileNodeSearch(&(**raiz).left, character);
         }
     }
-
-    // printf("Não encontrado");
 
     return NULL;
 }

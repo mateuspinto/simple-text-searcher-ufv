@@ -34,7 +34,6 @@ typedef struct patriciaNode {
 
 int patriciaNodeStartTree (patriciaNode ** node);
 int patriciaNodeIsExternal (patriciaNode **node);
-int patriciaNodeCheckBitEquals (patriciaNode **node, char * word);
 int patriciaNodeCheckBitFlow (patriciaNode **node, char * word);
 int patriciaNodeCreateExternalNode (patriciaNode ** node, char * word, char * filename);
 int patriciaNodeCreateInternalNode (patriciaNode ** node, char character, int position, patriciaNode ** left, patriciaNode ** right);

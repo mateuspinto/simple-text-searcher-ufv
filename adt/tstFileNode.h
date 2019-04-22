@@ -22,9 +22,8 @@ typedef struct tstFileNode {
 int tstFileNodeStartTree(tstFileNode ** node);
 int tstFileNodeCreateNode(tstFileNode ** node, char character, char * filename);
 int tstFileNodeAuxInsertFile(tstFileNode ** node, char * character, char * filename);
+int tstFileNodeInsertFile(tstFileNode ** node, char * filename);
 int tstFileNodeInsertInputs(tstFileNode ** node, char * dirname, int *qtdFiles);
-int tstFileNodeAuxGoThrough(tstFileNode *atual, char * buffer, int h);
-int tstFileNodeGoThrough(tstFileNode **raiz);
 tstFileNode** tstFileNodeSearch(tstFileNode **raiz, char *character);
 int tstFileNodeDestroy(tstFileNode **node);
 

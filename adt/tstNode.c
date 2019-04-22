@@ -58,8 +58,6 @@ int tstNodeInsertWord(tstNode ** node, char * character){
         return tstNodeInsertWord(&((**node).center), ++character);
 
         }
-    }else{
-        // printf("Letra %c %c\n", (**node).character, *character);
     }
 
     if(character[0]==(**node).character && character[1] == '\0'){ // Trata radicais ja presentes na arvore (exemplo: Mateus e depois Mat)
@@ -137,22 +135,22 @@ tstNode ** tstNodeSearchRadical(tstNode ** node, char * character){
 }
 
 
-int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h, listAutoFill **list)
+int tstNodeAuxGoThrough(tstNode *node, char * buffer, int h, listAutoFill **list)
 {
-    if (atual != NULL)
+    if (node != NULL)
     {
-        tstNodeAuxGoThrough(atual->left,buffer,h, list);
+        tstNodeAuxGoThrough(node->left,buffer,h, list);
 
-        buffer[h] = atual->character;
-        if (atual->endWord)
+        buffer[h] = node->character;
+        if (node->endWord)
         {
             buffer[h+1] = '\0';
             listAutoFillInsereItem(list, buffer);
         }
 
-        tstNodeAuxGoThrough(atual->center,buffer,h + 1, list);
+        tstNodeAuxGoThrough(node->center,buffer,h + 1, list);
 
-        tstNodeAuxGoThrough(atual->right,buffer,h, list);
+        tstNodeAuxGoThrough(node->right,buffer,h, list);
 
         return 1;
     }
@@ -160,11 +158,11 @@ int tstNodeAuxGoThrough(tstNode *atual, char * buffer, int h, listAutoFill **lis
     return 0;
 }
 
-int tstNodeGoThrough(tstNode **raiz, listAutoFill **list)
+int tstNodeGoThrough(tstNode **node, listAutoFill **list)
 {   
-    if(raiz!=NULL){
+    if(node!=NULL){
         char buffer[MAXCHAR+2];
-        return tstNodeAuxGoThrough(*raiz,buffer,0, list);
+        return tstNodeAuxGoThrough(*node,buffer,0, list);
     }
     return 0;
 }

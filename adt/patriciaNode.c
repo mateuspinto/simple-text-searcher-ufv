@@ -26,14 +26,6 @@ int patriciaNodeIsExternal (patriciaNode **node){
     return 0;
 }
 
-int patriciaNodeCheckBitEquals (patriciaNode **node, char * word){
-    // Usa nó INTERNO
-    if((**node).node.internal.character -= word[(**node).node.internal.position])
-    return 1;
-
-    return 0;
-}
-
 int patriciaNodeCheckBitFlow (patriciaNode **node, char * word){
     // Usa nó INTERNO
     if (strlen(word)<(**node).node.internal.position)
