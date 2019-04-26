@@ -28,14 +28,14 @@ If you don't have Clang installed or you're not sure about this, run those comma
     pacman -Sy clang
 After that, simple clone this repository, compile and run using these commands:
 
-    git clone REP_ADRESS
+    git clone https://github.com/mateusps10/Googla_DocumentFinder-TP1-AEDS2-UFV
     make clang
     make run
    For more information about Clang, please visit they [homepage](https://clang.llvm.org/)
 ## 2 - Without installing anything (or almost this): Using GCC
 
 ### On Linux or MAC based systems
-    git clone REP_ADRESS
+    git clone https://github.com/mateusps10/Googla_DocumentFinder-TP1-AEDS2-UFV
     make
     make run
 
