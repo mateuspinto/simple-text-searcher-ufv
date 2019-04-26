@@ -7,6 +7,7 @@ Integrantes (Matricula - Nome):
 3489 - Mateus Pinto da Silva
 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +43,7 @@ int main() {
     while(option!=0){
         if(option==1){
             printf("╔═════════════════╗\n");
-            printf("║      GOOGLA     ║\n");
+            printf("║     GOOGLA      ║\n");
             printf("╚═════════════════╝\n\n");
 
             printf("Para usar o nosso software de pesquisa selecione uma das opções:\n\n");
@@ -57,7 +58,7 @@ int main() {
 
         }else if(option==2){
 
-            printf("Insira o nome da pasta onde os arquivos estao: ");
+            printf("Insira o nome das pastas onde os arquivos estao: ");
 
             scanf("%s", pasta);
             setbuf(stdin, NULL);
@@ -112,10 +113,13 @@ int main() {
 
             optionSearch=1;
 
-            // listAutoFillShowItens(&listAutoComplete);
             printf("--------------RESULTADO------------\n\n");
 
             generalFunctionsSearch(&tstFileInputs, &patricia, search, qtdFiles);
+
+            free(search);
+
+            search=malloc(50*sizeof(char));
 
             printf("\n\nSelecione uma nova opção ou digite '1' para retornar ao menu: ");
 
@@ -131,7 +135,7 @@ int main() {
         }
     }
 
-    printf("Obrigado por usar o GOOGLA! ♥♥♥\n");
+    printf("Obrigado por usar o GOOGLA!\n");
 
 	return 0;
 
