@@ -6,29 +6,19 @@
 # 3489 - Mateus Pinto da Silva
 
 # Nome do executavel
-TARGET=text_organizer.o
+BIN=googla
 
 # Compiladores
-CC=gcc
-CCO=clang
-
-# Warnings
-WARN=-Wall
-
-CCFLAGS=$(WARN)
-
+CC=clang
 
 # Main e .c dos TADS
 SRC= main.c adt/tstNode.c adt/invertedChainedList.c adt/tstFileNode.c adt/patriciaNode.c adt/listaPesquisa.c adt/bstNode.c adt/listAutoFill.c generalFunctions.c
 
 all:
-	$(CC) -o $(TARGET) $(SRC) $(CCFLAGS) -lm
+	$(CC) -o $(BIN) $(SRC) -Wall -lm -O3 -march=native -flto
 
 run:
-	./$(TARGET)
+	./$(BIN)
 
 clear:
-	rm $(TARGET)
-
-clang:
-	$(CCO) -o $(TARGET) $(SRC) $(CCFLAGS) -lm -O3
+	rm $(BIN)
