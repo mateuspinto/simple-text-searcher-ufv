@@ -15,7 +15,7 @@ CC=clang
 SRC= main.c adt/tstNode.c adt/invertedChainedList.c adt/tstFileNode.c adt/patriciaNode.c adt/listaPesquisa.c adt/bstNode.c adt/listAutoFill.c generalFunctions.c
 
 all:
-	$(CC) -o $(BIN) $(SRC) -Wall -lm -O3 -march=native -flto
+	$(CC) -o $(BIN) $(SRC) -Wall -lm -O3 -march=native -pipe -flto
 
 run:
 	./$(BIN)

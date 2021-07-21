@@ -18,7 +18,7 @@ Araujo Vieira 3489 - Mateus Pinto da Silva
 #include "adt/tstNode.h"
 #include "generalFunctions.h"
 
-int main() {
+int main(void) {
 
   tstFileNode *tstFileInputs;
   tstNode *tstAutoFill;
